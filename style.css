@@ -1,0 +1,51 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f0f0f0;
+  color: #000;
+}
+
+header {
+  background: #4CAF50;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+#search {
+  padding: 10px;
+  width: 90%;
+  max-width: 400px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 5px;
+}
+main {
+  display: grid;
+  gap: 20px;
+  padding: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+}
+
+.product {
+  background: white;
+  border-radius: 15px;
+  padding: 10px;
+  box-shadow: 0 0 10px #00000033;
+}
+
+.product img {
+  max-width: 100%;
+  border-radius: 10px;
+}
+
+.buttons a {
+  display: inline-block;
+  margin: 5px 5px 0 0;
+  padding: 8px 12px;
+  background: #25D366;
+  color: white;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+}

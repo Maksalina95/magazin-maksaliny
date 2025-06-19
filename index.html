@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Магазин Максалины</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="manifest" href="manifest.json" />
+</head>
+<body>
+  <header>
+    <h1>Магазин Максалины</h1>
+    <input type="text" id="search" placeholder="Поиск товаров..." />
+  </header>
+
+  <main id="product-list"></main>
+
+  <footer>
+    <p>&copy; 2025 Магазин Максалины</p>
+  </footer>
+
+  <script src="app.js"></script>
+
+  <!-- 🔧 Регистрация Service Worker -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('service-worker.js')
+          .then(reg => console.log('✅ Service Worker зарегистрирован:', reg))
+          .catch(err => console.log('❌ Ошибка регистрации Service Worker:', err));
+      });
+    }
+  </script>
+
+  <!-- 💡 Показываем баннер "Установить приложение" -->
+  <script>
+    let deferredPrompt;
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault(); // Отменяем стандартный баннер
+      deferredPrompt = e;
+
+      // Показываем кнопку (можешь кастомизировать)
+      const installBtn = document.createElement('button');
+      installBtn.textContent = 'Установить Магазин Максалины';
+      installBtn.style.position = 'fixed';
+      installBtn.style.bottom = '20px';
+      installBtn.style.left = '20px';
+      installBtn.style.padding = '10px 15px';
+      installBtn.style.background = '#4CAF50';
+      installBtn.style.color = 'white';
+      installBtn.style.border = 'none';
+      installBtn.style.borderRadius = '10px';
+      installBtn.style.zIndex = '9999';
+      installBtn.style.cursor = 'pointer';
+      document.body.appendChild(installBtn);
+
+      installBtn.addEventListener('click', () => {
+        installBtn.remove(); // Удаляем кнопку
+        deferredPrompt.prompt(); // Показываем баннер
+        deferredPrompt.userChoice.then(choiceResult => {
+          if (choiceResult.outcome === 'accepted') {
+            console.log('Пользователь установил приложение');
+          } else {
+            console.log('Пользователь отказался от установки');
+          }
+          deferredPrompt = null;
+        });
+      });
+    });
+  </script>
+</body>
+</html>
