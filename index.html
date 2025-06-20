@@ -1,73 +1,98 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Магазин Максалины</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="manifest" href="manifest.json" />
-</head>
-<body>
-  <header>
-    <h1>Магазин Максалины</h1>
-    <input type="text" id="search" placeholder="Поиск товаров..." />
-  </header>
+body {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f9f9f9;
+}
 
-  <main id="product-list"></main>
+.top-menu {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  background: #fff;
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
 
-  <footer>
-    <p>&copy; 2025 Магазин Максалины</p>
-  </footer>
+.top-menu a {
+  text-decoration: none;
+  color: #333;
+  background: #f0f0f0;
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  transition: 0.3s;
+}
 
-  <script src="app.js"></script>
+.top-menu a:hover {
+  background: #e0e0e0;
+}
 
-  <!-- 🔧 Регистрация Service Worker -->
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('service-worker.js')
-          .then(reg => console.log('✅ Service Worker зарегистрирован:', reg))
-          .catch(err => console.log('❌ Ошибка регистрации Service Worker:', err));
-      });
-    }
-  </script>
+#search {
+  display: block;
+  margin: 20px auto;
+  padding: 10px;
+  width: 90%;
+  max-width: 400px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
 
-  <!-- 💡 Показываем баннер "Установить приложение" -->
-  <script>
-    let deferredPrompt;
+#product-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px;
+  padding: 20px;
+}
 
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault(); // Отменяем стандартный баннер
-      deferredPrompt = e;
+.product {
+  background: white;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  text-align: center;
+}
 
-      // Показываем кнопку (можешь кастомизировать)
-      const installBtn = document.createElement('button');
-      installBtn.textContent = 'Установить Магазин Максалины';
-      installBtn.style.position = 'fixed';
-      installBtn.style.bottom = '20px';
-      installBtn.style.left = '20px';
-      installBtn.style.padding = '10px 15px';
-      installBtn.style.background = '#4CAF50';
-      installBtn.style.color = 'white';
-      installBtn.style.border = 'none';
-      installBtn.style.borderRadius = '10px';
-      installBtn.style.zIndex = '9999';
-      installBtn.style.cursor = 'pointer';
-      document.body.appendChild(installBtn);
+.product img {
+  max-width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 8px;
+}
 
-      installBtn.addEventListener('click', () => {
-        installBtn.remove(); // Удаляем кнопку
-        deferredPrompt.prompt(); // Показываем баннер
-        deferredPrompt.userChoice.then(choiceResult => {
-          if (choiceResult.outcome === 'accepted') {
-            console.log('Пользователь установил приложение');
-          } else {
-            console.log('Пользователь отказался от установки');
-          }
-          deferredPrompt = null;
-        });
-      });
-    });
-  </script>
-</body>
-</html>
+.product h3 {
+  font-size: 18px;
+  margin: 10px 0 5px;
+}
+
+.product p {
+  margin: 5px 0;
+}
+
+.product .buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.product .buttons a {
+  text-decoration: none;
+  background: #25d366;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.product .buttons a:nth-child(2) {
+  background: #0088cc;
+}
+
+.product .buttons a:nth-child(3) {
+  background: #e1306c;
+}
