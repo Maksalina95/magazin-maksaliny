@@ -20,6 +20,24 @@
       font-weight: 700;
       color: #a63b3b; /* пурпурно-розовый */
     }
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: 20px 0 40px;
+    }
+    nav a {
+      background-color: #a63b3b;
+      color: white;
+      text-decoration: none;
+      padding: 10px 18px;
+      border-radius: 5px;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+    nav a:hover {
+      background-color: #7a2929;
+    }
     h2 {
       color: #8c2c2c;
       margin-top: 30px;
@@ -51,29 +69,6 @@
       border: 1px solid #d3a1a1;
       margin: 40px 0;
     }
-    a {
-      color: #a63b3b;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-    /* Кнопка "Назад" */
-    .back-button {
-      display: inline-block;
-      margin-bottom: 30px;
-      padding: 8px 15px;
-      background-color: #a63b3b;
-      color: white;
-      border-radius: 5px;
-      text-decoration: none;
-      font-weight: 600;
-      transition: background-color 0.3s ease;
-    }
-    .back-button:hover {
-      background-color: #7a2929;
-    }
   </style>
 </head>
 <body>
@@ -82,7 +77,13 @@
     <h1>Доставка</h1>
   </header>
 
-  <a href="index.html" class="back-button">← Назад на главную</a>
+  <nav>
+    <a href="index.html">Главная</a>
+    <a href="delivery.html">Доставка</a>
+    <a href="contacts.html">Контакты</a>
+    <a href="address.html">Адрес</a>
+    <a href="terms.html">Условия</a>
+  </nav>
 
   <h2>🚚 Курьерская доставка (Сунжа – до двери)</h2>
   <table>
