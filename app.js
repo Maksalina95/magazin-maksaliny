@@ -1,8 +1,8 @@
-ъ// ✅ ID твоей Google Таблицы
+// ✅ ID твоей Google Таблицы
 const sheetId = '1gBcuPzWv_nH2i7sWyCaERVCjO-hLg8EcndPkEMlNqgw';
 
 // ✅ Ссылка для получения данных (в обратных кавычках!)
-const url = `https://opensheet.elk.sh/${sheetId}/Лист1`;
+const url = https://opensheet.elk.sh/${sheetId}/Лист1;
 
 const productList = document.getElementById('product-list');
 const searchInput = document.getElementById('search');
