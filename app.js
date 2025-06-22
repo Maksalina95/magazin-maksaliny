@@ -15,7 +15,7 @@ fetch(url)
         <h3>${item.название}</h3>
         <p>${item.описание || ''}</p>
         <strong>${item.цена} ₽</strong><br/>
-        <a href="https://wa.me/ваш_номер" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+        <a href="https://wa.me/79376280080" target="_blank" rel="noopener noreferrer">WhatsApp</a>
       `;
       productList.appendChild(productEl);
     });
