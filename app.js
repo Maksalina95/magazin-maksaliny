@@ -1,4 +1,4 @@
-const sheetId = '1uvZDDq7y3D73InwHYQ4vKqmhHXGtK9KjdRcVXzm5KAk';
+const sheetId = '1gBcuPzWv_nH2i7sWyCaERVCjO-hLg8EcndPkEMlNqgw';
 const url = `https://opensheet.elk.sh/${sheetId}/Sheet1`;
 
 const productList = document.getElementById('product-list');
@@ -15,7 +15,7 @@ fetch(url)
         <h3>${item.название}</h3>
         <p>${item.описание || ''}</p>
         <strong>${item.цена} ₽</strong><br/>
-        <a href="https://wa.me/ваш_номер" target="_blank">WhatsApp</a>
+        <a href="https://wa.me/ваш_номер" target="_blank" rel="noopener noreferrer">WhatsApp</a>
       `;
       productList.appendChild(productEl);
     });
