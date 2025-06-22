@@ -2,38 +2,49 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Магазин Максолины</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Магазин Максалины</title>
   <link rel="stylesheet" href="style.css" />
+  <link rel="manifest" href="manifest.json" />
 </head>
 <body>
   <header>
-    <h1>Добро пожаловать в Магазин Максолины</h1>
+    <h1>Добро пожаловать в магазин Максалины!</h1>
   </header>
 
   <nav>
+    <a href="index.html">Главная</a>
     <a href="delivery.html">Доставка</a>
     <a href="contacts.html">Контакты</a>
-    <a href="address.html">Адрес</a>
-    <a href="terms.html">Условия</a>
+    <a href="terms.html">Правила</a>
   </nav>
 
   <main>
     <h2>О магазине</h2>
-    <p>
-      Мы рады приветствовать вас в магазине Максолины! У нас вы найдёте большой выбор посуды, бытовой техники и многого другого по выгодным ценам. Доставка по всей Ингушетии.
-    </p>
-
-    <hr>
-
+    <p>У нас вы найдёте посуду, технику и многое другое. Доставка по всей Ингушетии. Пиятного просмотра. </p>
+    <hr />
     <h2>Наши товары</h2>
-    <!-- Здесь будет вывод из Google Таблицы -->
-    <div id="product-list">
-      <p>Загрузка товаров...</p>
-    </div>
-
-    <script src="app.js"></script>
-    <script src="service-worker.js"></script>
+    <div id="product-list"><p>Загрузка товаров...</p></div>
   </main>
+
+  <!-- 🆕 Новая кнопка для обновления -->
+  <button id="refreshBtn" style="
+    position: fixed;
+    bottom: 16px;
+    right: 16px;
+    padding: 10px 16px;
+    background:#d37a7a;
+    color:#fff;
+    border:none;
+    border-radius:8px;
+    font-size:14px;
+    z-index:999;
+  ">
+    Обновить сайт
+  </button>
+
+  <!-- 📜 Старые скрипты остались -->
+  <script src="app.js"></script>
+  <script src="service-worker.js"></script>
 </body>
 </html>
