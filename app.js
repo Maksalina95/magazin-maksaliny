@@ -1,5 +1,5 @@
 const sheetId = '1uvZDDq7y3D73InwHYQ4vKqmhHXGtK9KjdRcVXzm5KAk';
-const url = `https://opensheet.elk.sh/${sheetId}/Лист1`;
+const url = https://opensheet.elk.sh/${sheetId}/Sheet1;
 
 const productList = document.getElementById('product-list');
 
