@@ -8,10 +8,13 @@
   <link rel="manifest" href="manifest.json" />
 </head>
 <body>
+
+  <!-- 🔝 Шапка -->
   <header>
     <h1>Добро пожаловать в магазин Максалины!</h1>
   </header>
 
+  <!-- 🔗 Меню -->
   <nav>
     <a href="index.html">Главная</a>
     <a href="delivery.html">Доставка</a>
@@ -19,15 +22,48 @@
     <a href="terms.html">Правила</a>
   </nav>
 
+  <!-- 🎯 Слайдер + реклама + видео RuTube -->
+  <section class="slider-section" style="text-align:center; background:#fff7f7; padding: 30px 10px;">
+    <h2 style="color:#a63b3b; margin-bottom: 20px;">🎯 Здесь могла быть Ваша реклама</h2>
+
+    <div class="slider-container" style="position:relative; max-width:800px; margin:0 auto; overflow:hidden; border-radius:12px; box-shadow:0 0 15px rgba(166, 59, 59, 0.2);">
+      <img src="images/reklama1.jpg" class="slide active" style="width:100%; display:block;" alt="Реклама 1">
+      <img src="images/reklama2.jpg" class="slide" style="width:100%; display:none;" alt="Реклама 2">
+      <img src="images/reklama3.jpg" class="slide" style="width:100%; display:none;" alt="Реклама 3">
+    </div>
+
+    <div class="dots" style="margin:15px 0;">
+      <span class="dot active" onclick="showSlide(0)" style="cursor:pointer; height:14px; width:14px; margin:0 5px; background:#f2dede; border-radius:50%; display:inline-block;"></span>
+      <span class="dot" onclick="showSlide(1)" style="cursor:pointer; height:14px; width:14px; margin:0 5px; background:#f2dede; border-radius:50%; display:inline-block;"></span>
+      <span class="dot" onclick="showSlide(2)" style="cursor:pointer; height:14px; width:14px; margin:0 5px; background:#f2dede; border-radius:50%; display:inline-block;"></span>
+    </div>
+
+    <p style="margin:10px 0; font-weight:500;">Хотите разместить здесь свою рекламу?</p>
+    <a href="https://wa.me/79376280080" target="_blank" style="background:#a63b3b; color:white; padding:10px 18px; border-radius:8px; text-decoration:none; font-weight:bold;">Написать в WhatsApp</a>
+
+    <div style="margin-top:30px;">
+      <h3>📽 Видеообзор магазина</h3>
+      <div class="video-wrapper">
+        <iframe src="https://rutube.ru/play/embed/YOUR_VIDEO_ID" allowfullscreen loading="lazy" width="320" height="180"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- 🏪 Блок О магазине -->
   <main>
     <h2>О магазине</h2>
-    <p>У нас вы найдёте посуду, технику и многое другое. Доставка по всей Ингушетии. Пиятного просмотра. </p>
+    <p>У нас вы найдёте посуду, технику и многое другое. Доставка по всей Ингушетии. Приятного просмотра. </p>
     <hr />
+
+    <!-- 🛍 Фильтры и поиск -->
+    <div id="filters-container"><p>Загрузка фильтров...</p></div>
+
+    <!-- 📦 Товары -->
     <h2>Наши товары</h2>
     <div id="product-list"><p>Загрузка товаров...</p></div>
   </main>
 
-  <!-- 🆕 Новая кнопка для обновления -->
+  <!-- 🔄 Кнопка обновления -->
   <button id="refreshBtn" style="
     position: fixed;
     bottom: 16px;
@@ -39,12 +75,31 @@
     border-radius:8px;
     font-size:14px;
     z-index:999;
-  ">
-    Обновить сайт
-  </button>
+  ">Обновить сайт</button>
 
-  <!-- 📜 Старые скрипты остались -->
+  <!-- 📜 Скрипты -->
   <script src="app.js"></script>
+  <script src="filter-search.js"></script>
   <script src="service-worker.js"></script>
+
+  <!-- 🎞 Скрипт слайдера -->
+  <script>
+    let slides = document.querySelectorAll(".slide");
+    let dots = document.querySelectorAll(".dot");
+    let currentSlide = 0;
+
+    function showSlide(index) {
+      slides[currentSlide].style.display = "none";
+      dots[currentSlide].classList.remove("active");
+      currentSlide = index;
+      slides[currentSlide].style.display = "block";
+      dots[currentSlide].classList.add("active");
+    }
+
+    setInterval(() => {
+      let next = (currentSlide + 1) % slides.length;
+      showSlide(next);
+    }, 5000);
+  </script>
 </body>
 </html>
