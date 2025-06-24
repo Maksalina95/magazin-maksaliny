@@ -44,6 +44,7 @@
     main {
       flex: 1;
       padding: 20px;
+      max-width: 900px;
     }
 
     .slider-container {
@@ -62,12 +63,6 @@
 
     .slide.active {
       display: block;
-    }
-
-    iframe.slide {
-      border: none;
-      width: 100%;
-      height: 200px;
     }
 
     .dots {
@@ -89,7 +84,7 @@
       background-color: #a63b3b;
     }
 
-    /* --- Фильтры и поиск --- */
+    /* Новые стили для фильтров */
     .filters {
       display: flex;
       flex-wrap: wrap;
@@ -99,24 +94,31 @@
     }
 
     .filters select,
-    .filters input[type="number"],
-    .filters input[type="text"] {
+    .filters input[type="number"] {
       padding: 8px 10px;
       border-radius: 8px;
       border: 1px solid #ccc;
-      min-width: 140px;
+      min-width: 130px;
       font-size: 14px;
-      outline: none;
-      transition: border-color 0.3s;
+      font-weight: 600;
+      color: #4b2e2e;
     }
 
-    .filters select:focus,
-    .filters input[type="number"]:focus,
-    .filters input[type="text"]:focus {
-      border-color: #a63b3b;
-      box-shadow: 0 0 6px rgba(166, 59, 59, 0.5);
+    .filters label {
+      font-weight: 600;
+      color: #a63b3b;
+      margin-right: 6px;
     }
 
+    .filters .price-range {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    button#refreshBtn:hover {
+      background-color: #a04d56;
+    }
   </style>
 </head>
 <body>
@@ -131,54 +133,72 @@
     </aside>
 
     <main>
-      <!-- 🎞 Анимированный слайдер с 2 фото + 1 видео -->
+      <!-- 🎞 Анимированный слайдер с 2 фото -->
       <div class="slider-container">
         <img src="images/reklama1.jpg" class="slide active" alt="Реклама 1">
         <img src="images/reklama2.jpg" class="slide" alt="Реклама 2">
-        <iframe src="https://rutube.ru/play/embed/a79d481b0c56910f15f05b396acb0d59" class="slide" allowfullscreen></iframe>
       </div>
 
       <div class="dots">
         <span class="dot active" onclick="showSlide(0)"></span>
         <span class="dot" onclick="showSlide(1)"></span>
-        <span class="dot" onclick="showSlide(2)"></span>
       </div>
 
-      <h2>О магазине</h2>
-      <p>У нас вы найдёте посуду, технику и многое другое. Доставка по всей Ингушетии. Приятного просмотра!</p>
+      <h2>Добро пожаловать в Магазин Максалины!</h2>
+      <p>
+        Мы предлагаем качественную посуду, бытовую технику и многое другое с доставкой по всей Ингушетии.
+        Удобный выбор товаров с фильтрами и быстрым поиском.
+      </p>
+      <p>
+        Все товары тщательно отобраны для вашего комфорта и уюта в доме.
+      </p>
       <hr />
 
-      <!-- 🔎 Фильтры и поиск -->
-      <div class="filters">
-        <select id="filter-category" aria-label="Категория">
+      <!-- Блок фильтров -->
+      <div class="filters" id="filters">
+        <label for="filter-category">Категория:</label>
+        <select id="filter-category">
           <option value="">Все категории</option>
-          <!-- опции подгружаем в будущем -->
+          <!-- Динамически наполняется -->
         </select>
 
-        <select id="filter-subcategory" aria-label="Подкатегория">
+        <label for="filter-subcategory">Подкатегория:</label>
+        <select id="filter-subcategory">
           <option value="">Все подкатегории</option>
+          <!-- Динамически -->
         </select>
 
-        <select id="filter-subsubcategory" aria-label="Подподкатегория">
-          <option value="">Все подподкатегории</option>
+        <label for="filter-section">Раздел:</label>
+        <select id="filter-section">
+          <option value="">Все разделы</option>
+          <!-- Динамически -->
         </select>
 
-        <select id="filter-brand" aria-label="Бренд">
+        <label for="filter-brand">Бренд:</label>
+        <select id="filter-brand">
           <option value="">Все бренды</option>
+          <!-- Динамически -->
         </select>
 
-        <select id="filter-country" aria-label="Страна">
+        <label for="filter-country">Страна:</label>
+        <select id="filter-country">
           <option value="">Все страны</option>
+          <!-- Динамически -->
         </select>
 
-        <select id="filter-type" aria-label="Тип">
+        <label for="filter-type">Тип:</label>
+        <select id="filter-type">
           <option value="">Все типы</option>
+          <!-- Динамически -->
         </select>
 
-        <input id="filter-price-min" type="number" min="0" placeholder="Цена от" aria-label="Цена от" />
-        <input id="filter-price-max" type="number" min="0" placeholder="Цена до" aria-label="Цена до" />
+        <div class="price-range">
+          <label for="filter-price-min">Цена от:</label>
+          <input type="number" id="filter-price-min" placeholder="0" min="0" />
+          <label for="filter-price-max">до:</label>
+          <input type="number" id="filter-price-max" placeholder="100000" min="0" />
+        </div>
 
-        <input id="searchInput" type="text" placeholder="Поиск по названию и описанию..." aria-label="Поиск" style="min-width: 200px; flex-grow: 1;" />
       </div>
 
       <h2>Наши товары</h2>
@@ -204,8 +224,8 @@
 
   <!-- 📜 Скрипты -->
   <script src="app.js"></script>
-  <script src="filter-search.js"></script>
   <script src="service-worker.js"></script>
+
   <script>
     let slides = document.querySelectorAll(".slide");
     let dots = document.querySelectorAll(".dot");
