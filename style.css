@@ -24,7 +24,7 @@ header h1 {
 
 nav {
   display: flex;
-  flex-wrap: wrap; /* 👈 новое — меню теперь переносится */
+  flex-wrap: wrap;
   justify-content: center;
   gap: 12px;
   margin-bottom: 24px;
@@ -41,7 +41,7 @@ nav a {
   border-radius: 5px;
   font-weight: bold;
   transition: background-color 0.3s ease;
-  flex: 0 1 auto; /* 👈 новое — адаптивное поведение */
+  flex: 0 1 auto;
 }
 
 nav a:hover {
@@ -64,7 +64,7 @@ img {
   margin-top: 10px;
 }
 
-/* 👇 Добавлено для кнопки обновления */
+/* Кнопка обновления */
 button#refreshBtn:hover {
   background-color: #a04d56;
 }
@@ -122,3 +122,5 @@ button#refreshBtn:hover {
   max-width: 100%;
   aspect-ratio: 16 / 9;
 }
+
+/* Стили для фильтров (если нужно сюда добавить)
