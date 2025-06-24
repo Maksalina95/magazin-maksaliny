@@ -88,6 +88,35 @@
     .dot.active {
       background-color: #a63b3b;
     }
+
+    /* --- Фильтры и поиск --- */
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 20px;
+      justify-content: center;
+    }
+
+    .filters select,
+    .filters input[type="number"],
+    .filters input[type="text"] {
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      min-width: 140px;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    .filters select:focus,
+    .filters input[type="number"]:focus,
+    .filters input[type="text"]:focus {
+      border-color: #a63b3b;
+      box-shadow: 0 0 6px rgba(166, 59, 59, 0.5);
+    }
+
   </style>
 </head>
 <body>
@@ -118,6 +147,40 @@
       <h2>О магазине</h2>
       <p>У нас вы найдёте посуду, технику и многое другое. Доставка по всей Ингушетии. Приятного просмотра!</p>
       <hr />
+
+      <!-- 🔎 Фильтры и поиск -->
+      <div class="filters">
+        <select id="filter-category" aria-label="Категория">
+          <option value="">Все категории</option>
+          <!-- опции подгружаем в будущем -->
+        </select>
+
+        <select id="filter-subcategory" aria-label="Подкатегория">
+          <option value="">Все подкатегории</option>
+        </select>
+
+        <select id="filter-subsubcategory" aria-label="Подподкатегория">
+          <option value="">Все подподкатегории</option>
+        </select>
+
+        <select id="filter-brand" aria-label="Бренд">
+          <option value="">Все бренды</option>
+        </select>
+
+        <select id="filter-country" aria-label="Страна">
+          <option value="">Все страны</option>
+        </select>
+
+        <select id="filter-type" aria-label="Тип">
+          <option value="">Все типы</option>
+        </select>
+
+        <input id="filter-price-min" type="number" min="0" placeholder="Цена от" aria-label="Цена от" />
+        <input id="filter-price-max" type="number" min="0" placeholder="Цена до" aria-label="Цена до" />
+
+        <input id="searchInput" type="text" placeholder="Поиск по названию и описанию..." aria-label="Поиск" style="min-width: 200px; flex-grow: 1;" />
+      </div>
+
       <h2>Наши товары</h2>
       <div id="product-list"><p>Загрузка товаров...</p></div>
 
@@ -141,6 +204,7 @@
 
   <!-- 📜 Скрипты -->
   <script src="app.js"></script>
+  <script src="filter-search.js"></script>
   <script src="service-worker.js"></script>
   <script>
     let slides = document.querySelectorAll(".slide");
