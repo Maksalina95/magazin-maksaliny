@@ -84,7 +84,7 @@
       background-color: #a63b3b;
     }
 
-    /* Новые стили для фильтров */
+    /* 🎯 Стили для фильтров и поиска */
     .filters {
       display: flex;
       flex-wrap: wrap;
@@ -94,7 +94,8 @@
     }
 
     .filters select,
-    .filters input[type="number"] {
+    .filters input[type="number"],
+    .filters input[type="text"] {
       padding: 8px 10px;
       border-radius: 8px;
       border: 1px solid #ccc;
@@ -116,6 +117,16 @@
       gap: 6px;
     }
 
+    @media (max-width: 600px) {
+      .filters {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .filters input, .filters select {
+        width: 100%;
+      }
+    }
+
     button#refreshBtn:hover {
       background-color: #a04d56;
     }
@@ -125,15 +136,15 @@
   <div class="container">
     <aside>
       <h2>Меню</h2>
-      <a href="index.html">Главная</a>
-      <a href="delivery.html">Доставка</a>
-      <a href="contacts.html">Контакты</a>
-      <a href="address.html">Адрес</a>
-      <a href="terms.html">Правила</a>
+      <a href="index.html">🏠 Главная</a>
+      <a href="delivery.html">🚚 Доставка</a>
+      <a href="contacts.html">📞 Контакты</a>
+      <a href="address.html">📍 Адрес</a>
+      <a href="terms.html">📜 Правила</a>
     </aside>
 
     <main>
-      <!-- 🎞 Анимированный слайдер с 2 фото -->
+      <!-- 🎞 Анимированный слайдер -->
       <div class="slider-container">
         <img src="images/reklama1.jpg" class="slide active" alt="Реклама 1">
         <img src="images/reklama2.jpg" class="slide" alt="Реклама 2">
@@ -144,64 +155,53 @@
         <span class="dot" onclick="showSlide(1)"></span>
       </div>
 
-      <h2>Добро пожаловать в Магазин Максалины!</h2>
-      <p>
-        Мы предлагаем качественную посуду, бытовую технику и многое другое с доставкой по всей Ингушетии.
-        Удобный выбор товаров с фильтрами и быстрым поиском.
-      </p>
-      <p>
-        Все товары тщательно отобраны для вашего комфорта и уюта в доме.
-      </p>
-      <hr />
+      <!-- 🧠 Поиск -->
+      <div class="filters" style="margin-bottom: 10px;">
+        <input type="text" id="searchInput" placeholder="🔍 Поиск по названию или описанию..." />
+      </div>
 
-      <!-- Блок фильтров -->
+      <!-- 🧩 Фильтры -->
       <div class="filters" id="filters">
-        <label for="filter-category">Категория:</label>
+        <label for="filter-category">🗂 Категория:</label>
         <select id="filter-category">
           <option value="">Все категории</option>
-          <!-- Динамически наполняется -->
         </select>
 
-        <label for="filter-subcategory">Подкатегория:</label>
+        <label for="filter-subcategory">📁 Подкатегория:</label>
         <select id="filter-subcategory">
           <option value="">Все подкатегории</option>
-          <!-- Динамически -->
         </select>
 
-        <label for="filter-section">Раздел:</label>
+        <label for="filter-section">📦 Раздел:</label>
         <select id="filter-section">
           <option value="">Все разделы</option>
-          <!-- Динамически -->
         </select>
 
-        <label for="filter-brand">Бренд:</label>
+        <label for="filter-brand">🏷 Бренд:</label>
         <select id="filter-brand">
           <option value="">Все бренды</option>
-          <!-- Динамически -->
         </select>
 
-        <label for="filter-country">Страна:</label>
+        <label for="filter-country">🌍 Страна:</label>
         <select id="filter-country">
           <option value="">Все страны</option>
-          <!-- Динамически -->
         </select>
 
-        <label for="filter-type">Тип:</label>
+        <label for="filter-type">🛠 Тип:</label>
         <select id="filter-type">
           <option value="">Все типы</option>
-          <!-- Динамически -->
         </select>
 
         <div class="price-range">
-          <label for="filter-price-min">Цена от:</label>
+          <label for="filter-price-min">💰 от:</label>
           <input type="number" id="filter-price-min" placeholder="0" min="0" />
           <label for="filter-price-max">до:</label>
           <input type="number" id="filter-price-max" placeholder="100000" min="0" />
         </div>
-
       </div>
 
-      <h2>Наши товары</h2>
+      <!-- 🛍 Каталог -->
+      <h2>Все товары</h2>
       <div id="product-list"><p>Загрузка товаров...</p></div>
 
       <!-- 🔄 Кнопка обновления -->
@@ -217,7 +217,7 @@
         font-size:14px;
         z-index:999;
       ">
-        Обновить сайт
+        🔄 Обновить сайт
       </button>
     </main>
   </div>
@@ -225,7 +225,6 @@
   <!-- 📜 Скрипты -->
   <script src="app.js"></script>
   <script src="service-worker.js"></script>
-
   <script>
     let slides = document.querySelectorAll(".slide");
     let dots = document.querySelectorAll(".dot");
