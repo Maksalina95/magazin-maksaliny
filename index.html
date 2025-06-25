@@ -2,51 +2,15 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Магазин Максалины</title>
+  <!-- Подключаем общий стиль -->
   <link rel="stylesheet" href="style.css" />
   <link rel="manifest" href="manifest.json" />
   <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-    }
+    /* Если нужно, здесь можно добавить локальные стили для index.html */
 
-    .container {
-      display: flex;
-      min-height: 100vh;
-    }
-
-    aside {
-      width: 220px;
-      background-color: #f8eaea;
-      padding: 20px;
-      box-shadow: 2px 0 10px rgba(0,0,0,0.1);
-    }
-
-    aside h2 {
-      margin-top: 0;
-      color: #a63b3b;
-    }
-
-    aside a {
-      display: block;
-      margin: 12px 0;
-      color: #333;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    aside a:hover {
-      text-decoration: underline;
-    }
-
-    main {
-      flex: 1;
-      padding: 20px;
-      max-width: 900px;
-    }
-
+    /* Пример базовых стилей для слайдера и фильтров (добавь если нет в style.css) */
     .slider-container {
       position: relative;
       max-width: 700px;
@@ -55,21 +19,17 @@
       border-radius: 12px;
       box-shadow: 0 0 15px rgba(166, 59, 59, 0.2);
     }
-
     .slide {
       display: none;
       width: 100%;
     }
-
     .slide.active {
       display: block;
     }
-
     .dots {
       text-align: center;
       margin: 10px 0;
     }
-
     .dot {
       cursor: pointer;
       height: 12px;
@@ -79,56 +39,8 @@
       border-radius: 50%;
       display: inline-block;
     }
-
     .dot.active {
       background-color: #a63b3b;
-    }
-
-    /* 🎯 Стили для фильтров и поиска */
-    .filters {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-bottom: 20px;
-      justify-content: center;
-    }
-
-    .filters select,
-    .filters input[type="number"],
-    .filters input[type="text"] {
-      padding: 8px 10px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      min-width: 130px;
-      font-size: 14px;
-      font-weight: 600;
-      color: #4b2e2e;
-    }
-
-    .filters label {
-      font-weight: 600;
-      color: #a63b3b;
-      margin-right: 6px;
-    }
-
-    .filters .price-range {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    @media (max-width: 600px) {
-      .filters {
-        flex-direction: column;
-        align-items: stretch;
-      }
-      .filters input, .filters select {
-        width: 100%;
-      }
-    }
-
-    button#refreshBtn:hover {
-      background-color: #a04d56;
     }
   </style>
 </head>
@@ -146,27 +58,22 @@
     </aside>
 
     <main>
-      <!-- 🎞 Анимированный слайдер -->
+      <!-- Слайдер -->
       <div class="slider-container">
         <img src="images/reklama1.jpg" class="slide active" alt="Реклама 1" />
         <img src="images/reklama2.jpg" class="slide" alt="Реклама 2" />
       </div>
-
       <div class="dots">
         <span class="dot active" onclick="showSlide(0)"></span>
         <span class="dot" onclick="showSlide(1)"></span>
       </div>
 
-      <!-- 🧠 Поиск -->
+      <!-- Поиск -->
       <div class="filters" style="margin-bottom: 10px;">
-        <input
-          type="text"
-          id="searchInput"
-          placeholder="🔍 Поиск по названию или описанию..."
-        />
+        <input type="text" id="searchInput" placeholder="🔍 Поиск по названию или описанию..." />
       </div>
 
-      <!-- 🧩 Фильтры -->
+      <!-- Фильтры -->
       <div class="filters" id="filters">
         <label for="filter-category">🗂 Категория:</label>
         <select id="filter-category">
@@ -202,44 +109,34 @@
           <label for="filter-price-min">💰 от:</label>
           <input type="number" id="filter-price-min" placeholder="0" min="0" />
           <label for="filter-price-max">до:</label>
-          <input
-            type="number"
-            id="filter-price-max"
-            placeholder="100000"
-            min="0"
-          />
+          <input type="number" id="filter-price-max" placeholder="100000" min="0" />
         </div>
       </div>
 
-      <!-- 🛍 Каталог -->
+      <!-- Каталог товаров -->
       <h2>Все товары</h2>
       <div id="product-list"><p>Загрузка товаров...</p></div>
 
-      <!-- 🔄 Кнопка обновления -->
-      <button
-        id="refreshBtn"
-        style="
-          position: fixed;
-          bottom: 16px;
-          right: 16px;
-          padding: 10px 16px;
-          background: #d37a7a;
-          color: #fff;
-          border: none;
-          border-radius: 8px;
-          font-size: 14px;
-          z-index: 999;
-        "
-      >
-        🔄 Обновить сайт
-      </button>
+      <!-- Кнопка обновить -->
+      <button id="refreshBtn" style="
+        position: fixed;
+        bottom: 16px;
+        right: 16px;
+        padding: 10px 16px;
+        background:#d37a7a;
+        color:#fff;
+        border:none;
+        border-radius:8px;
+        font-size:14px;
+        z-index:999;
+      ">🔄 Обновить сайт</button>
     </main>
   </div>
 
-  <!-- 📜 Скрипты -->
-  <script src="app.js"></script>
-  <script src="filterSearch.js"></script>
-  <script src="favorites.js"></script>
+  <!-- Скрипты -->
+  <script src="filterSearch.js"></script>  <!-- обновленный фильтр -->
+  <script src="favorites.js"></script>    <!-- избранное -->
+  <script src="app.js"></script>          <!-- основной js -->
   <script src="service-worker.js"></script>
 
   <script>
