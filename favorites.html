@@ -2,64 +2,60 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Избранное — Магазин Максолины</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Избранное — Магазин Максалины</title>
   <link rel="stylesheet" href="style.css" />
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #fff0f5;
-      color: #4b2e2e;
-      margin: 0;
-      padding: 20px;
-      max-width: 900px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    h1 {
-      text-align: center;
-      color: #a63b3b;
-      margin-bottom: 30px;
-    }
-    #favorites-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 20px;
-    }
-    .empty-msg {
-      text-align: center;
-      font-style: italic;
-      margin-top: 50px;
-      color: #a63b3b;
-    }
-    nav {
-      margin-bottom: 20px;
-    }
-    nav a {
-      margin-right: 12px;
-      color: #a63b3b;
-      font-weight: bold;
-      text-decoration: none;
-    }
-    nav a:hover {
-      text-decoration: underline;
-    }
-  </style>
 </head>
 <body>
-  <header>
-    <h1>❤ Избранное</h1>
-  </header>
+
   <nav>
     <a href="index.html">🏠 Главная</a>
     <a href="category.html">🗂 Категории</a>
     <a href="contacts.html">📞 Контакты</a>
   </nav>
+
   <main>
+    <h1>❤ Избранное</h1>
     <div id="favorites-list">
       <p>Загрузка избранного...</p>
     </div>
   </main>
-  <script src="favorites.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const favoritesList = document.getElementById('favorites-list');
+      const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+
+      if (favorites.length === 0) {
+        favoritesList.innerHTML = '<p>У вас нет избранных товаров.</p>';
+        return;
+      }
+
+      // Предполагается, что у тебя есть объект товаров для отображения.
+      // Для примера сделаем простой объект с данными (в реальном проекте можно подгружать из JSON или API)
+      const productsData = {
+        "1": {name: "Товар 1", price: 1000, img: "images/product1.jpg", desc: "Описание товара 1"},
+        "2": {name: "Товар 2", price: 1500, img: "images/product2.jpg", desc: "Описание товара 2"},
+        // Добавь остальные товары сюда
+      };
+
+      favoritesList.innerHTML = '';
+      favorites.forEach(id => {
+        const prod = productsData[id];
+        if (prod) {
+          const card = document.createElement('div');
+          card.className = 'product-card';
+          card.innerHTML = `
+            <img src="${prod.img}" alt="${prod.name}">
+            <h3>${prod.name}</h3>
+            <p>${prod.desc}</p>
+            <p>Цена: ${prod.price} ₽</p>
+          `;
+          favoritesList.appendChild(card);
+        }
+      });
+    });
+  </script>
+
 </body>
 </html>
