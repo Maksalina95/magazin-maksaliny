@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Категории — Магазин Максолины</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px;
+      margin: 30px 0;
+    }
+    .category-card {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 0 12px rgba(0,0,0,0.1);
+      background: #fff;
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    .category-card:hover {
+      transform: scale(1.02);
+    }
+    .category-card img {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+    }
+    .category-card h3 {
+      margin: 10px;
+      color: #a63b3b;
+    }
+    nav {
+      margin-bottom: 20px;
+    }
+    nav a {
+      margin-right: 12px;
+      color: #a63b3b;
+      font-weight: bold;
+      text-decoration: none;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Категории</h1>
+  </header>
+  <nav>
+    <a href="index.html">🏠 Главная</a>
+    <a href="favorites.html">❤ Избранное</a>
+    <a href="contacts.html">📞 Контакты</a>
+  </nav>
+  <main>
+    <div class="category-grid">
+      <div class="category-card" onclick="location.href='index.html?category=Техника'">
+        <img src="images/category-tech.jpg" alt="Техника" />
+        <h3>Техника</h3>
+      </div>
+      <div class="category-card" onclick="location.href='index.html?category=Посуда'">
+        <img src="images/category-dishes.jpg" alt="Посуда" />
+        <h3>Посуда</h3>
+      </div>
+      <div class="category-card" onclick="location.href='index.html?category=Кухня'">
+        <img src="images/category-kitchen.jpg" alt="Кухня" />
+        <h3>Кухня</h3>
+      </div>
+      <!-- Добавь свои категории сюда -->
+    </div>
+  </main>
+</body>
+</html>
