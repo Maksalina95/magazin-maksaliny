@@ -3,267 +3,30 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Условия — Магазин Максолины</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f9e9e9;
-      color: #5a2e2e;
-      margin: 0;
-      padding: 20px;
-    }
-    header {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    h1 {
-      color: #a63b3b;
-    }
-    nav {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-bottom: 30px;
-    }
-    nav a {
-      background-color: #a63b3b;
-      color: white;
-      padding: 8px 14px;
-      text-decoration: none;
-      border-radius: 6px;
-      font-weight: 600;
-      transition: background-color 0.3s ease;
-    }
-    nav a:hover {
-      background-color: #7a2929;
-    }
-    nav a.active {
-      background-color: #7a2929;
-    }
-
-    .accordion {
-      margin-bottom: 15px;
-    }
-
-    .accordion button {
-      background-color: #a63b3b;
-      color: white;
-      cursor: pointer;
-      padding: 14px 18px;
-      width: 100%;
-      border: none;
-      text-align: left;
-      outline: none;
-      font-size: 17px;
-      border-radius: 8px;
-      margin-bottom: 5px;
-    }
-
-    .accordion-content {
-      padding: 15px;
-      background-color: #fff6f6;
-      display: none;
-      border: 1px solid #d3a1a1;
-      border-radius: 8px;
-      font-size: 16px;
-      line-height: 1.6;
-    }
-
-    .accordion-content p {
-      margin: 10px 0;
-    }
-
-    footer {
-      margin-top: 40px;
-      text-align: center;
-      font-size: 14px;
-      color: #7a2929;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 15px;
-    }
-
-    table, th, td {
-      border: 1px solid #d3a1a1;
-    }
-
-    th, td {
-      padding: 10px;
-      text-align: left;
-    }
-
-    th {
-      background-color: #f2dede;
-    }
-  </style>
+  <title>Контакты — Магазин Максолины</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
   <header>
-    <h1>📜 Условия договора купли-продажи</h1>
+    <h1>📞 Контакты</h1>
   </header>
 
   <nav>
-    <a href="index.html">Главная</a>
-    <a href="delivery.html">Доставка</a>
-    <a href="contacts.html">Контакты</a>
-    <a href="address.html">Адрес</a>
-    <a href="terms.html" class="active">Условия</a>
+    <a href="index.html">🏠 Главная</a>
+    <a href="delivery.html">🚚 Доставка</a>
+    <a href="contacts.html">📞 Контакты</a>
+    <a href="address.html">📍 Адрес</a>
+    <a href="terms.html">📜 Условия</a>
   </nav>
 
-  <div class="accordion">
-    <button onclick="toggleAccordion(this)">📝 Общая информация</button>
-    <div class="accordion-content">
-      <p>📎 Правила составлены в соответствии с действующим законодательством РФ.</p>
-      <p>📌 Условия действуют для покупок в котёл и за наличные.</p>
-      <p>❌ Копирование текста запрещено.</p>
-    </div>
-  </div>
-
-  <div class="accordion">
-    <button onclick="toggleAccordion(this)">📢 Оповещения</button>
-    <div class="accordion-content">
-      <p>Продавец обязуется своевременно информировать Покупателей об изменениях через:</p>
-      <ul>
-        <li>группу «КОТЁЛ НА ВСЁ»</li>
-        <li>статусы WhatsApp: +7 937 628-00-80 и +7 964 962-66-94</li>
-        <li>официальные площадки</li>
-      </ul>
-      <p>Новые условия не распространяются на договоры, заключённые до изменений.</p>
-    </div>
-  </div>
-
-  <div class="accordion">
-    <button onclick="toggleAccordion(this)">🧾 Принятие условий</button>
-    <div class="accordion-content">
-      <p>Покупатель соглашается с настоящими условиями, предоставляя фото паспорта:</p>
-      <ul>
-        <li>первую страницу и страницу с пропиской</li>
-        <li>можно скрыть серию и номер, но лицо должно быть видно</li>
-      </ul>
-      <p>Без подтверждения — покупка невозможна.</p>
-    </div>
-  </div>
-
-  <div class="accordion">
-    <button onclick="toggleAccordion(this)">🛒 Оформление заказа</button>
-    <div class="accordion-content">
-      <p>✅ Оформление заказа означает согласие:</p>
-      <ul>
-        <li>Оплатить товар и доставку</li>
-        <li>Ознакомиться с описанием товара</li>
-        <li>Проверить товар при получении</li>
-      </ul>
-      <p>❗ При несогласии — пользоваться магазином запрещено.</p>
-    </div>
-  </div>
-
-  <div class="accordion">
-    <button onclick="toggleAccordion(this)">👤 Требования к участникам</button>
-    <div class="accordion-content">
-      <ul>
-        <li>Только женщины от 18 лет</li>
-        <li>Из Ингушетии или Дагестана</li>
-        <li>Если живёте за пределами, но есть родственники в Ингушетии — допускается</li>
-        <li>Разрешение от всех перед вступлением в котёл</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="accordion">
-    <button onclick="toggleAccordion(this)">💳 Оплата и подтверждение</button>
-    <div class="accordion-content">
-      <p>Оплата: на карту или наличными. После оплаты:</p>
-      <ul>
-        <li>Скинуть чек с полной информацией (дата, ФИО, сумма и т.д.)</li>
-        <li>Подписывать: имя, город, номер оплаты, месяц</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="accordion">
-    <button onclick="toggleAccordion(this)">📦 Доставка</button>
-    <div class="accordion-content">
-      <ul>
-        <li>По Ингушетии — до 3 рабочих дней</li>
-        <li>За пределы — только при предоплате</li>
-        <li>Если доставка не удалась — оплачивается повторно</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="accordion">
-    <button onclick="toggleAccordion(this)">🏬 Хранение и возврат</button>
-    <div class="accordion-content">
-      <p>Срок хранения — 3 недели. По истечении:</p>
-      <ul>
-        <li>Возврат с вычетом 20% (котёл) или 10% (наличные)</li>
-        <li>При отказе — удержание 30% от суммы</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="accordion">
-    <button onclick="toggleAccordion(this)">🚫 Возврат</button>
-    <div class="accordion-content">
-      <ul>
-        <li>Возврат товара надлежащего качества — невозможен</li>
-        <li>Возврат ненадлежащего — при экспертизе и упаковке</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="accordion">
-    <button onclick="toggleAccordion(this)">🛠 Гарантии</button>
-    <div class="accordion-content">
-      <p>Если выявлен производственный брак:</p>
-      <ul>
-        <li>Покупатель делает экспертизу</li>
-        <li>Если подтвердится — обмен на новый</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="accordion">
-    <button onclick="toggleAccordion(this)">🧾 Конфиденциальность</button>
-    <div class="accordion-content">
-      <p>Личные данные не передаются третьим лицам без согласия</p>
-      <p>Исключение — если долг более месяца</p>
-    </div>
-  </div>
-
-  <div class="accordion">
-    <button onclick="toggleAccordion(this)">🚫 Запрещено</button>
-    <div class="accordion-content">
-      <p>Запрещено контактировать с другими клиентами</p>
-      <p>За нарушение — внесение в чёрный список Ингушетии</p>
-    </div>
-  </div>
-
-  <div class="accordion">
-    <button onclick="toggleAccordion(this)">⚖ Урегулирование споров</button>
-    <div class="accordion-content">
-      <p>Споры решаются путём переговоров</p>
-      <p>Если невозможно — через шариатский суд / имамов</p>
-    </div>
-  </div>
-
-  <footer>
-    📅 Условия действуют с 23 июня 2025 года.  
-    <br>Пожалуйста, не используйте магазин, если вы не согласны с условиями.
-  </footer>
-
-  <script>
-    function toggleAccordion(button) {
-      const content = button.nextElementSibling;
-      const isOpen = content.style.display === "block";
-      content.style.display = isOpen ? "none" : "block";
-    }
-  </script>
-
+  <main>
+    <ul>
+      <li>WhatsApp: <a href="https://wa.me/79376280080" target="_blank">+7 937 628-00-80</a></li>
+      <li>WhatsApp: <a href="https://wa.me/89649626694" target="_blank">+7 964 962-66-94</a></li>
+      <li>Telegram: <a href="https://t.me/internet_magazin_v_ingushetii" target="_blank">@internet_magazin_v_ingushetii</a></li>
+      <li>Telegram: <a href="https://t.me/magazin_maksaliny" target="_blank">@magazin_maksaliny</a></li>
+      <li>Instagram: <a href="https://instagram.com/posuda_i_tehnika_u_maksaliny" target="_blank">@posuda_i_tehnika_u_maksалiny</a></li>
+    </ul>
+  </main>
 </body>
 </html>
