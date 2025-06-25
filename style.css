@@ -1,71 +1,146 @@
-// ✅ filter-search.js
+/* style.css */
 
-const sheetId = '1gBcuPzWv_nH2i7sWyCaERVCjO-hLg8EcndPkEMlNqgw'; const url = https://opensheet.elk.sh/${sheetId}/Sheet1;
-
-let products = []; // Все товары let filteredProducts = []; // Отфильтрованные товары
-
-// ✅ Создание карточки товара function createProductCard(product) { const card = document.createElement('div'); card.className = 'product-card';
-
-const img = document.createElement('img'); img.src = product.photo || 'images/no-image.png'; img.alt = product.name || 'Товар'; card.appendChild(img);
-
-const title = document.createElement('h3'); title.textContent = product.name || 'Без названия'; card.appendChild(title);
-
-if (product.description) { const desc = document.createElement('p'); desc.textContent = product.description; card.appendChild(desc); }
-
-if (product.price) { const price = document.createElement('p'); price.textContent = Цена: ${product.price} ₽; card.appendChild(price); }
-
-if (product.видео && product.видео.trim() !== '') { const iframe = document.createElement('iframe'); iframe.src = https://rutube.ru/play/embed/${product.видео.trim()}; iframe.allowFullscreen = true; iframe.frameBorder = 0; iframe.style.borderRadius = '12px'; iframe.style.marginTop = '10px'; card.appendChild(iframe); }
-
-return card; }
-
-// ✅ Отрисовка товаров function renderProducts(productsToRender) { const container = document.getElementById('product-list'); container.innerHTML = '';
-
-if (!productsToRender.length) { container.innerHTML = '<p>Товары не найдены.</p>'; return; }
-
-const grid = document.createElement('div'); grid.className = 'products-grid';
-
-productsToRender.forEach(product => { const card = createProductCard(product); grid.appendChild(card); });
-
-container.appendChild(grid); }
-
-// ✅ Фильтрация и поиск function filterProducts() { const category = document.getElementById('filter-category').value.toLowerCase(); const subcategory = document.getElementById('filter-subcategory').value.toLowerCase(); const section = document.getElementById('filter-section').value.toLowerCase(); const brand = document.getElementById('filter-brand').value.toLowerCase(); const country = document.getElementById('filter-country').value.toLowerCase(); const type = document.getElementById('filter-type').value.toLowerCase(); const priceMin = parseFloat(document.getElementById('filter-price-min').value) || 0; const priceMax = parseFloat(document.getElementById('filter-price-max').value) || Infinity; const searchText = (document.getElementById('searchInput')?.value || '').toLowerCase();
-
-filteredProducts = products.filter(p => { const pCategory = (p.category || '').toLowerCase(); const pSubcategory = (p.subcategory || '').toLowerCase(); const pSection = (p.section || p.subsubcategory || '').toLowerCase(); const pBrand = (p.brand || '').toLowerCase(); const pCountry = (p.country || '').toLowerCase(); const pType = (p.type || '').toLowerCase(); const pPrice = parseFloat(p.price) || 0; const pName = (p.name || '').toLowerCase(); const pDescription = (p.description || '').toLowerCase();
-
-if (category && pCategory !== category) return false;
-if (subcategory && pSubcategory !== subcategory) return false;
-if (section && pSection !== section) return false;
-if (brand && pBrand !== brand) return false;
-if (country && pCountry !== country) return false;
-if (type && pType !== type) return false;
-if (pPrice < priceMin || pPrice > priceMax) return false;
-
-if (searchText) {
-  if (!pName.includes(searchText) && !pDescription.includes(searchText)) return false;
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f7e9e9;
+  color: #5a2e2e;
 }
 
-return true;
+.container {
+  display: flex;
+  min-height: 100vh;
+}
 
-});
+aside {
+  width: 220px;
+  background-color: #f8eaea;
+  padding: 20px;
+  box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+}
 
-renderProducts(filteredProducts); }
+aside h2 {
+  margin-top: 0;
+  color: #a63b3b;
+}
 
-// ✅ Уникальные значения для фильтров function fillFilters() { function uniqueValues(field) { return [...new Set(products.map(p => (p[field] || '').trim()).filter(v => v !== ''))].sort(); }
+aside a {
+  display: block;
+  margin: 12px 0;
+  color: #333;
+  text-decoration: none;
+  font-weight: bold;
+}
 
-function fillSelect(id, values) { const select = document.getElementById(id); if (!select) return; select.options.length = 1; values.forEach(v => { const opt = document.createElement('option'); opt.value = v; opt.textContent = v; select.appendChild(opt); }); }
+aside a:hover {
+  text-decoration: underline;
+}
 
-fillSelect('filter-category', uniqueValues('category')); fillSelect('filter-subcategory', uniqueValues('subcategory')); fillSelect('filter-section', uniqueValues('section')); fillSelect('filter-brand', uniqueValues('brand')); fillSelect('filter-country', uniqueValues('country')); fillSelect('filter-type', uniqueValues('type')); }
+main {
+  flex: 1;
+  padding: 20px;
+  max-width: 900px;
+}
 
-// ✅ Загрузка данных async function loadProducts() { try { const response = await fetch(url); const data = await response.json();
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+  justify-content: center;
+}
 
-products = data;
-fillFilters();
-filterProducts();
+.filters select,
+.filters input[type="number"],
+.filters input[type="text"] {
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  min-width: 130px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #4b2e2e;
+}
 
-} catch (err) { console.error('Ошибка загрузки:', err); document.getElementById('product-list').innerHTML = '<p>Ошибка загрузки товаров.</p>'; } }
+.filters label {
+  font-weight: 600;
+  color: #a63b3b;
+  margin-right: 6px;
+}
 
-function setupEventListeners() { const ids = [ 'filter-category', 'filter-subcategory', 'filter-section', 'filter-brand', 'filter-country', 'filter-type', 'filter-price-min', 'filter-price-max', 'searchInput' ];
+.filters .price-range {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
 
-ids.forEach(id => { const el = document.getElementById(id); if (el) { el.addEventListener('input', filterProducts); el.addEventListener('change', filterProducts); } }); }
+.product-card {
+  border: 1px solid #d3a1a1;
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 16px;
+  background: #fff;
+  box-shadow: 0 0 6px rgba(166, 59, 59, 0.2);
+}
 
-document.addEventListener('DOMContentLoaded', () => { loadProducts(); setupEventListeners(); });
+.product-card img {
+  max-width: 100%;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.product-card h3 {
+  margin: 0 0 8px;
+  color: #a63b3b;
+}
+
+.product-card button {
+  background-color: #a63b3b;
+  border: none;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 700;
+  transition: background-color 0.3s ease;
+}
+
+.product-card button:hover {
+  background-color: #7a2929;
+}
+
+button#refreshBtn {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  padding: 10px 16px;
+  background: #d37a7a;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  z-index: 999;
+  cursor: pointer;
+}
+
+button#refreshBtn:hover {
+  background-color: #a04d56;
+}
+
+/* Адаптив */
+@media (max-width: 600px) {
+  .filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .filters input, .filters select {
+    width: 100%;
+  }
+  aside {
+    display: none; /* Скрыть боковое меню на мобильных */
+  }
+  main {
+    max-width: 100%;
+    padding: 10px;
+  }
+}
