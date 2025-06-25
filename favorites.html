@@ -2,60 +2,33 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Избранное — Магазин Максалины</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>⭐ Избранное — Магазин Максалины</title>
   <link rel="stylesheet" href="style.css" />
+  <link rel="manifest" href="manifest.json" />
 </head>
 <body>
+  <div class="container">
+    <aside>
+      <h2>Меню</h2>
+      <a href="index.html">🏠 Главная</a>
+      <a href="category.html">🗂 Категории</a>
+      <a href="favorites.html" class="active">⭐ Избранное</a>
+      <a href="delivery.html">🚚 Доставка</a>
+      <a href="contacts.html">📞 Контакты</a>
+      <a href="address.html">📍 Адрес</a>
+      <a href="reviews.html">💬 Отзывы</a>
+      <a href="terms.html">📜 Правила</a>
+      <a href="#" onclick="location.reload()">🔄 Обновить сайт</a>
+    </aside>
 
-  <nav>
-    <a href="index.html">🏠 Главная</a>
-    <a href="category.html">🗂 Категории</a>
-    <a href="contacts.html">📞 Контакты</a>
-  </nav>
+    <main>
+      <h1>⭐ Избранное</h1>
+      <div id="favorites-list">Загрузка избранного...</div>
+    </main>
+  </div>
 
-  <main>
-    <h1>❤ Избранное</h1>
-    <div id="favorites-list">
-      <p>Загрузка избранного...</p>
-    </div>
-  </main>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const favoritesList = document.getElementById('favorites-list');
-      const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-
-      if (favorites.length === 0) {
-        favoritesList.innerHTML = '<p>У вас нет избранных товаров.</p>';
-        return;
-      }
-
-      // Предполагается, что у тебя есть объект товаров для отображения.
-      // Для примера сделаем простой объект с данными (в реальном проекте можно подгружать из JSON или API)
-      const productsData = {
-        "1": {name: "Товар 1", price: 1000, img: "images/product1.jpg", desc: "Описание товара 1"},
-        "2": {name: "Товар 2", price: 1500, img: "images/product2.jpg", desc: "Описание товара 2"},
-        // Добавь остальные товары сюда
-      };
-
-      favoritesList.innerHTML = '';
-      favorites.forEach(id => {
-        const prod = productsData[id];
-        if (prod) {
-          const card = document.createElement('div');
-          card.className = 'product-card';
-          card.innerHTML = `
-            <img src="${prod.img}" alt="${prod.name}">
-            <h3>${prod.name}</h3>
-            <p>${prod.desc}</p>
-            <p>Цена: ${prod.price} ₽</p>
-          `;
-          favoritesList.appendChild(card);
-        }
-      });
-    });
-  </script>
-
+  <!-- Скрипты -->
+  <script src="favorites.js"></script>
 </body>
 </html>
