@@ -17,14 +17,16 @@
       <a href="delivery.html">🚚 Доставка</a>
       <a href="contacts.html">📞 Контакты</a>
       <a href="address.html">📍 Адрес</a>
+      <a href="reviews.html">🗣 Отзывы</a>
+      <a href="#" onclick="location.reload()">🔄 Обновить сайт</a>
       <a href="terms.html">📜 Правила</a>
     </aside>
 
     <main>
       <!-- 🎞 Слайдер -->
       <div class="slider-container">
-        <img src="images/reklama1.jpg" class="slide active" alt="Реклама 1" />
-        <img src="images/reklama2.jpg" class="slide" alt="Реклама 2" />
+        <img src="images/reklama1.jpg" class="slide active" alt="Реклама 1">
+        <img src="images/reklama2.jpg" class="slide" alt="Реклама 2">
       </div>
       <div class="dots">
         <span class="dot active" onclick="showSlide(0)"></span>
@@ -33,34 +35,28 @@
 
       <!-- 🔍 Поиск -->
       <div class="filters">
-        <input
-          type="text"
-          id="searchInput"
-          placeholder="🔍 Поиск по названию..."
-          list="autocompleteList"
-          autocomplete="off"
-        />
+        <input type="text" id="searchInput" placeholder="🔍 Поиск по названию..." list="autocompleteList">
         <datalist id="autocompleteList"></datalist>
       </div>
 
       <!-- 🎯 Фильтры -->
       <div class="filters" id="filters">
-        <label for="filter-category">🗂 Категория:</label>
+        <label>🗂 Категория:</label>
         <select id="filter-category"><option value="">Все</option></select>
 
-        <label for="filter-subcategory">📁 Подкатегория:</label>
+        <label>📁 Подкатегория:</label>
         <select id="filter-subcategory"><option value="">Все</option></select>
 
-        <label for="filter-section">📦 Раздел:</label>
+        <label>📦 Раздел:</label>
         <select id="filter-section"><option value="">Все</option></select>
 
-        <label for="filter-brand">🏷 Бренд:</label>
+        <label>🏷 Бренд:</label>
         <select id="filter-brand"><option value="">Все</option></select>
 
-        <label for="filter-country">🌍 Страна:</label>
+        <label>🌍 Страна:</label>
         <select id="filter-country"><option value="">Все</option></select>
 
-        <label for="filter-type">🛠 Тип:</label>
+        <label>🛠 Тип:</label>
         <select id="filter-type"><option value="">Все</option></select>
 
         <div class="price-range">
@@ -71,18 +67,10 @@
         </div>
       </div>
 
-      <!-- 🛍 Каталог -->
-      <h2>Все товары</h2>
-      <div id="product-list">Загрузка товаров...</div>
-
-      <!-- ⭐ Избранное (пустой контейнер для отзывов) -->
-      <section class="reviews-section" id="reviews-section">
-        <h2>Отзывы клиентов</h2>
-        <!-- Здесь ты потом будешь добавлять отзывы -->
-      </section>
-
-      <!-- 🔄 Кнопка обновления -->
-      <button id="refreshBtn">🔄 Обновить сайт</button>
+      <!-- 🧱 Категории с фото-сеткой -->
+      <div id="category-gallery">
+        <!-- Категории будут подгружаться из Google Таблицы -->
+      </div>
     </main>
   </div>
 
@@ -90,7 +78,6 @@
   <script src="filterSearch.js"></script>
   <script src="favorites.js"></script>
   <script src="service-worker.js"></script>
-
   <script>
     // 🎞 Слайдер
     let slides = document.querySelectorAll(".slide");
@@ -109,188 +96,6 @@
       let next = (currentSlide + 1) % slides.length;
       showSlide(next);
     }, 5000);
-
-    // 🔁 Обновление страницы
-    document.getElementById("refreshBtn").onclick = () => location.reload();
-  </script>
-
-  <!-- ==== Логика загрузки товаров из Google Таблицы, с видео и избранным ==== -->
-  <script>
-    const sheetId = '1gBcuPzWv_nH2i7sWyCaERVCjO-hLg8EcndPkEMlNqgw';
-    const url = https://opensheet.elk.sh/${sheetId}/Sheet1;
-    const productList = document.getElementById('product-list');
-
-    // Избранное из localStorage
-    let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-
-    // Функция проверки, избран ли товар
-    function isFavorite(id) {
-      return favorites.includes(id);
-    }
-
-    // Обновление избранного в localStorage
-    function toggleFavorite(id) {
-      if (isFavorite(id)) {
-        favorites = favorites.filter(favId => favId !== id);
-      } else {
-        favorites.push(id);
-      }
-      localStorage.setItem('favorites', JSON.stringify(favorites));
-      renderProducts(currentProducts);
-    }
-
-    // Хранение текущих продуктов для фильтрации
-    let currentProducts = [];
-
-    // Загрузка данных
-    fetch(url)
-      .then(res => res.json())
-      .then(data => {
-        // Фильтруем: у товара должны быть фото, название, цена
-        currentProducts = data.filter(item => item.фото && item.название && item.цена);
-        renderProducts(currentProducts);
-        populateFilters(currentProducts);
-        populateAutocomplete(currentProducts);
-      })
-      .catch(err => {
-        productList.innerHTML = '<p>Ошибка загрузки товаров.</p>';
-        console.error(err);
-      });
-
-    // Функция отрисовки товаров
-    function renderProducts(products) {
-      productList.innerHTML = '';
-      if (products.length === 0) {
-        productList.innerHTML = '<p>Товары не найдены.</p>';
-        return;
-      }
-      products.forEach(item => {
-        const isFav = isFavorite(item.ID || item.id || item.название); // если нет ID, используем название
-        const productEl = document.createElement('div');
-        productEl.innerHTML = `
-          <img src="${item.фото}" alt="${item.название}" />
-          <h3>${item.название}</h3>
-          <p>${item.описание || ''}</p>
-          ${item.видео ? <video class="product-video" controls src="${item.видео}"></video> : ''}
-          <strong>${item.цена} ₽</strong><br/>
-          <a href="https://wa.me/79376280080" target="_blank" rel="noopener noreferrer">WhatsApp</a>
-          <button class="favorite-btn ${isFav ? 'active' : ''}" aria-label="Избранное">⭐</button>
-        `;
-        productList.appendChild(productEl);
-
-        // Обработчик кнопки избранного
-        const favBtn = productEl.querySelector('.favorite-btn');
-        favBtn.addEventListener('click', () => toggleFavorite(item.ID || item.id || item.название));
-      });
-    }
-
-    // Фильтры: заполним категории и остальное
-    function populateFilters(products) {
-      const categories = new Set();
-      const subcategories = new Set();
-      const sections = new Set();
-      const brands = new Set();
-      const countries = new Set();
-      const types = new Set();
-
-      products.forEach(item => {
-        if (item.категория) categories.add(item.категория);
-        if (item.подкатегория) subcategories.add(item.подкатегория);
-        if (item.раздел) sections.add(item.раздел);
-        if (item.бренд) brands.add(item.бренд);
-        if (item.страна) countries.add(item.страна);
-        if (item.тип) types.add(item.тип);
-      });
-
-      fillSelect('filter-category', categories);
-      fillSelect('filter-subcategory', subcategories);
-      fillSelect('filter-section', sections);
-      fillSelect('filter-brand', brands);
-      fillSelect('filter-country', countries);
-      fillSelect('filter-type', types);
-    }
-
-    // Помощник для заполнения select
-    function fillSelect(id, items) {
-      const select = document.getElementById(id);
-      select.innerHTML = '<option value="">Все</option>';
-      Array.from(items).sort().forEach(value => {
-        const option = document.createElement('option');
-        option.value = value;
-        option.textContent = value;
-        select.appendChild(option);
-      });
-    }
-
-    // Подсказки для поиска
-    function populateAutocomplete(products) {
-      const datalist = document.getElementById('autocompleteList');
-      datalist.innerHTML = '';
-      products.forEach(item => {
-        if (item.название) {
-          const option = document.createElement('option');
-          option.value = item.название;
-          datalist.appendChild(option);
-        }
-      });
-    }
-
-    // Реакция на фильтры и поиск
-    const filterInputs = [
-      'searchInput',
-      'filter-category',
-      'filter-subcategory',
-      'filter-section',
-      'filter-brand',
-      'filter-country',
-      'filter-type',
-      'filter-price-min',
-      'filter-price-max'
-    ].map(id => document.getElementById(id));
-
-    filterInputs.forEach(input => {
-      input.addEventListener('input', () => {
-        let filtered = currentProducts;
-
-        // Поиск по названию
-        const searchText = document.getElementById('searchInput').value.trim().toLowerCase();
-        if (searchText) {
-          filtered = filtered.filter(item => item.название.toLowerCase().includes(searchText));
-        }
-
-        // Фильтры по select
-        const cat = document.getElementById('filter-category').value;
-        if (cat) filtered = filtered.filter(item => item.категория === cat);
-
-        const subcat = document.getElementById('filter-subcategory').value;
-        if (subcat) filtered = filtered.filter(item => item.подкатегория === subcat);
-
-        const section = document.getElementById('filter-section').value;
-        if (section) filtered = filtered.filter(item => item.раздел === section);
-
-        const brand = document.getElementById('filter-brand').value;
-        if (brand) filtered = filtered.filter(item => item.бренд === brand);
-
-        const country = document.getElementById('filter-country').value;
-        if (country) filtered = filtered.filter(item => item.страна === country);
-
-        const type = document.getElementById('filter-type').value;
-        if (type) filtered = filtered.filter(item => item.тип === type);
-
-        // Фильтр по цене
-        const priceMin = Number(document.getElementById('filter-price-min').value);
-        const priceMax = Number(document.getElementById('filter-price-max').value);
-
-        if (!isNaN(priceMin)) {
-          filtered = filtered.filter(item => Number(item.цена) >= priceMin);
-        }
-        if (!isNaN(priceMax) && priceMax > 0) {
-          filtered = filtered.filter(item => Number(item.цена) <= priceMax);
-        }
-
-        renderProducts(filtered);
-      });
-    });
   </script>
 </body>
 </html>
