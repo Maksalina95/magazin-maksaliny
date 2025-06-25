@@ -1,32 +1,41 @@
-const CACHE_NAME = 'shop-cache-v1';
+// 📦 service-worker.js — Финальный, улучшенный
+
+const CACHE_NAME = 'shop-cache-v4';
+
 const urlsToCache = [
   '/',
   '/index.html',
   '/style.css',
+  '/app.js',
   '/filterSearch.js',
-  '/manifest.json',
-  '/icons/icon-192.png',
-  '/icons/icon-512.png',
-  '/delivery.html',
-  '/contacts.html',
-  '/address.html',
-  '/terms.html',
+  '/favorites.js',
   '/category.html',
   '/favorites.html',
-  '/up-button.js'
+  '/contacts.html',
+  '/delivery.html',
+  '/address.html',
+  '/terms.html',
+  '/manifest.json',
+  '/up-button.js',
+  '/images/reklama1.jpg',
+  '/images/reklama2.jpg',
+  '/icons/icon-192.png',
+  '/icons/icon-512.png'
 ];
 
+// Установка (кешируем необходимые файлы)
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME).then(cache => cache.addAll(urlsToCache))
   );
 });
 
+// ⚠ Не кешировать внешние источники
 self.addEventListener('fetch', event => {
   const url = new URL(event.request.url);
 
-  // ⚠ Не кэшируем внешние запросы (например, таблицу или фото из i.ibb.co)
   if (url.origin !== location.origin) {
+    // Внешние — не кешируем
     return;
   }
 
@@ -34,5 +43,18 @@ self.addEventListener('fetch', event => {
     caches.match(event.request).then(response => {
       return response || fetch(event.request);
     })
+  );
+});
+
+// Удаление старых кэшей при обновлении
+self.addEventListener('activate', event => {
+  event.waitUntil(
+    caches.keys().then(keys =>
+      Promise.all(
+        keys
+          .filter(key => key !== CACHE_NAME)
+          .map(key => caches.delete(key))
+      )
+    )
   );
 });
