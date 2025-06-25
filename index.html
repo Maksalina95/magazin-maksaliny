@@ -2,108 +2,60 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Магазин Максалины</title>
-  <!-- Подключаем общий стиль -->
   <link rel="stylesheet" href="style.css" />
   <link rel="manifest" href="manifest.json" />
-  <style>
-    /* Если нужно, здесь можно добавить локальные стили для index.html */
-
-    /* Пример базовых стилей для слайдера и фильтров (добавь если нет в style.css) */
-    .slider-container {
-      position: relative;
-      max-width: 700px;
-      margin: 0 auto 30px;
-      overflow: hidden;
-      border-radius: 12px;
-      box-shadow: 0 0 15px rgba(166, 59, 59, 0.2);
-    }
-    .slide {
-      display: none;
-      width: 100%;
-    }
-    .slide.active {
-      display: block;
-    }
-    .dots {
-      text-align: center;
-      margin: 10px 0;
-    }
-    .dot {
-      cursor: pointer;
-      height: 12px;
-      width: 12px;
-      margin: 0 5px;
-      background-color: #ddd;
-      border-radius: 50%;
-      display: inline-block;
-    }
-    .dot.active {
-      background-color: #a63b3b;
-    }
-  </style>
 </head>
 <body>
   <div class="container">
     <aside>
       <h2>Меню</h2>
       <a href="index.html">🏠 Главная</a>
+      <a href="category.html">🗂 Категории</a>
+      <a href="favorites.html">⭐ Избранное</a>
       <a href="delivery.html">🚚 Доставка</a>
       <a href="contacts.html">📞 Контакты</a>
       <a href="address.html">📍 Адрес</a>
       <a href="terms.html">📜 Правила</a>
-      <a href="category.html">🗂 Категории</a>
-      <a href="favorites.html">❤ Избранное</a>
     </aside>
 
     <main>
-      <!-- Слайдер -->
+      <!-- 🎞 Слайдер -->
       <div class="slider-container">
-        <img src="images/reklama1.jpg" class="slide active" alt="Реклама 1" />
-        <img src="images/reklama2.jpg" class="slide" alt="Реклама 2" />
+        <img src="images/reklama1.jpg" class="slide active" alt="Реклама 1">
+        <img src="images/reklama2.jpg" class="slide" alt="Реклама 2">
       </div>
       <div class="dots">
         <span class="dot active" onclick="showSlide(0)"></span>
         <span class="dot" onclick="showSlide(1)"></span>
       </div>
 
-      <!-- Поиск -->
-      <div class="filters" style="margin-bottom: 10px;">
-        <input type="text" id="searchInput" placeholder="🔍 Поиск по названию или описанию..." />
+      <!-- 🔍 Поиск -->
+      <div class="filters">
+        <input type="text" id="searchInput" placeholder="🔍 Поиск по названию..." list="autocompleteList">
+        <datalist id="autocompleteList"></datalist>
       </div>
 
-      <!-- Фильтры -->
+      <!-- 🎯 Фильтры -->
       <div class="filters" id="filters">
         <label for="filter-category">🗂 Категория:</label>
-        <select id="filter-category">
-          <option value="">Все категории</option>
-        </select>
+        <select id="filter-category"><option value="">Все</option></select>
 
         <label for="filter-subcategory">📁 Подкатегория:</label>
-        <select id="filter-subcategory">
-          <option value="">Все подкатегории</option>
-        </select>
+        <select id="filter-subcategory"><option value="">Все</option></select>
 
         <label for="filter-section">📦 Раздел:</label>
-        <select id="filter-section">
-          <option value="">Все разделы</option>
-        </select>
+        <select id="filter-section"><option value="">Все</option></select>
 
         <label for="filter-brand">🏷 Бренд:</label>
-        <select id="filter-brand">
-          <option value="">Все бренды</option>
-        </select>
+        <select id="filter-brand"><option value="">Все</option></select>
 
         <label for="filter-country">🌍 Страна:</label>
-        <select id="filter-country">
-          <option value="">Все страны</option>
-        </select>
+        <select id="filter-country"><option value="">Все</option></select>
 
         <label for="filter-type">🛠 Тип:</label>
-        <select id="filter-type">
-          <option value="">Все типы</option>
-        </select>
+        <select id="filter-type"><option value="">Все</option></select>
 
         <div class="price-range">
           <label for="filter-price-min">💰 от:</label>
@@ -113,33 +65,21 @@
         </div>
       </div>
 
-      <!-- Каталог товаров -->
+      <!-- 🛍 Каталог -->
       <h2>Все товары</h2>
-      <div id="product-list"><p>Загрузка товаров...</p></div>
+      <div id="product-list">Загрузка товаров...</div>
 
-      <!-- Кнопка обновить -->
-      <button id="refreshBtn" style="
-        position: fixed;
-        bottom: 16px;
-        right: 16px;
-        padding: 10px 16px;
-        background:#d37a7a;
-        color:#fff;
-        border:none;
-        border-radius:8px;
-        font-size:14px;
-        z-index:999;
-      ">🔄 Обновить сайт</button>
+      <!-- 🔄 Кнопка обновления -->
+      <button id="refreshBtn">🔄 Обновить сайт</button>
     </main>
   </div>
 
-  <!-- Скрипты -->
-  <script src="filterSearch.js"></script>  <!-- обновленный фильтр -->
-  <script src="favorites.js"></script>    <!-- избранное -->
-  <script src="app.js"></script>          <!-- основной js -->
+  <!-- 📜 Скрипты -->
+  <script src="filterSearch.js"></script>
+  <script src="favorites.js"></script>
   <script src="service-worker.js"></script>
-
   <script>
+    // 🎞 Слайдер
     let slides = document.querySelectorAll(".slide");
     let dots = document.querySelectorAll(".dot");
     let currentSlide = 0;
@@ -156,6 +96,9 @@
       let next = (currentSlide + 1) % slides.length;
       showSlide(next);
     }, 5000);
+
+    // 🔁 Обновление страницы
+    document.getElementById("refreshBtn").onclick = () => location.reload();
   </script>
 </body>
 </html>
