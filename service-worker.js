@@ -3,10 +3,17 @@ const urlsToCache = [
   '/',
   '/index.html',
   '/style.css',
-  '/app.js',
+  '/filterSearch.js',
   '/manifest.json',
   '/icons/icon-192.png',
-  '/icons/icon-512.png'
+  '/icons/icon-512.png',
+  '/delivery.html',
+  '/contacts.html',
+  '/address.html',
+  '/terms.html',
+  '/category.html',
+  '/favorites.html',
+  '/up-button.js'
 ];
 
 self.addEventListener('install', event => {
