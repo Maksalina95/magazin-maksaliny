@@ -127,6 +127,35 @@
       }
     }
 
+    /* Стили карточек товаров с кнопкой избранного */
+    .product-card {
+      border: 1px solid #a63b3b;
+      border-radius: 12px;
+      padding: 12px;
+      margin: 12px 0;
+      box-shadow: 0 0 8px rgba(166, 59, 59, 0.2);
+      max-width: 320px;
+    }
+
+    .product-card img {
+      width: 100%;
+      border-radius: 8px;
+    }
+
+    .favorite-btn {
+      cursor: pointer;
+      font-size: 20px;
+      background: none;
+      border: none;
+      color: gray;
+      transition: color 0.3s ease;
+      margin-top: 8px;
+    }
+
+    .favorite-btn:hover {
+      color: #a63b3b;
+    }
+
     button#refreshBtn:hover {
       background-color: #a04d56;
     }
@@ -141,6 +170,7 @@
       <a href="contacts.html">📞 Контакты</a>
       <a href="address.html">📍 Адрес</a>
       <a href="terms.html">📜 Правила</a>
+      <a href="favorites.html">❤ Избранное</a>
     </aside>
 
     <main>
@@ -201,7 +231,7 @@
       </div>
 
       <!-- 🛍 Каталог -->
-      <h2>🛒 Все товары</h2>
+      <h2>Все товары</h2>
       <div id="product-list"><p>Загрузка товаров...</p></div>
 
       <!-- 🔄 Кнопка обновления -->
@@ -223,9 +253,9 @@
   </div>
 
   <!-- 📜 Скрипты -->
-  <script src="app.js"></script>
+  <script src="filterSearch.js"></script>
+  <script src="favorites.js"></script>
   <script src="service-worker.js"></script>
-  <script src="filter-search.js"></script>
   <script>
     let slides = document.querySelectorAll(".slide");
     let dots = document.querySelectorAll(".dot");
@@ -243,6 +273,11 @@
       let next = (currentSlide + 1) % slides.length;
       showSlide(next);
     }, 5000);
+
+    // Кнопка обновления страницы
+    document.getElementById('refreshBtn').addEventListener('click', () => {
+      location.reload();
+    });
   </script>
 </body>
 </html>
