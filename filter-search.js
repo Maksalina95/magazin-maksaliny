@@ -1,71 +1,135 @@
-// ✅ filter-search.js
+// filterSearch.js
 
-const sheetId = '1gBcuPzWv_nH2i7sWyCaERVCjO-hLg8EcndPkEMlNqgw'; const url = https://opensheet.elk.sh/${sheetId}/Sheet1;
+// Товары — пример. В реале можешь загрузить из Google Sheets или файла
+const products = [
+  {
+    id: 1,
+    category: "Техника",
+    subcategory: "Кухонная техника",
+    brand: "BrandA",
+    country: "Россия",
+    price: 3500,
+    name: "Миксер",
+    description: "Качественный миксер для кухни",
+    img: "images/mixer.jpg"
+  },
+  {
+    id: 2,
+    category: "Посуда",
+    subcategory: "Тарелки",
+    brand: "BrandB",
+    country: "Италия",
+    price: 1500,
+    name: "Тарелка фарфоровая",
+    description: "Белая фарфоровая тарелка",
+    img: "images/plate.jpg"
+  },
+  // Добавляй свои товары
+];
 
-let products = []; // Все товары let filteredProducts = []; // Отфильтрованные товары
+const productList = document.getElementById("product-list");
+const searchInput = document.getElementById("searchInput");
 
-// ✅ Создание карточки товара function createProductCard(product) { const card = document.createElement('div'); card.className = 'product-card';
+const filterCategory = document.getElementById("filter-category");
+const filterSubcategory = document.getElementById("filter-subcategory");
+const filterBrand = document.getElementById("filter-brand");
+const filterCountry = document.getElementById("filter-country");
+const filterPriceMin = document.getElementById("filter-price-min");
+const filterPriceMax = document.getElementById("filter-price-max");
 
-const img = document.createElement('img'); img.src = product.photo || 'images/no-image.png'; img.alt = product.name || 'Товар'; card.appendChild(img);
+// Функция для заполнения селектов уникальными значениями из товаров
+function fillFilterOptions() {
+  const categories = [...new Set(products.map(p => p.category))];
+  const subcategories = [...new Set(products.map(p => p.subcategory))];
+  const brands = [...new Set(products.map(p => p.brand))];
+  const countries = [...new Set(products.map(p => p.country))];
 
-const title = document.createElement('h3'); title.textContent = product.name || 'Без названия'; card.appendChild(title);
+  categories.forEach(cat => {
+    const option = document.createElement("option");
+    option.value = cat;
+    option.textContent = cat;
+    filterCategory.appendChild(option);
+  });
 
-if (product.description) { const desc = document.createElement('p'); desc.textContent = product.description; card.appendChild(desc); }
+  subcategories.forEach(sub => {
+    const option = document.createElement("option");
+    option.value = sub;
+    option.textContent = sub;
+    filterSubcategory.appendChild(option);
+  });
 
-if (product.price) { const price = document.createElement('p'); price.textContent = Цена: ${product.price} ₽; card.appendChild(price); }
+  brands.forEach(brand => {
+    const option = document.createElement("option");
+    option.value = brand;
+    option.textContent = brand;
+    filterBrand.appendChild(option);
+  });
 
-if (product.видео && product.видео.trim() !== '') { const iframe = document.createElement('iframe'); iframe.src = https://rutube.ru/play/embed/${product.видео.trim()}; iframe.allowFullscreen = true; iframe.frameBorder = 0; iframe.style.borderRadius = '12px'; iframe.style.marginTop = '10px'; card.appendChild(iframe); }
-
-return card; }
-
-// ✅ Отрисовка товаров function renderProducts(productsToRender) { const container = document.getElementById('product-list'); container.innerHTML = '';
-
-if (!productsToRender.length) { container.innerHTML = '<p>Товары не найдены.</p>'; return; }
-
-const grid = document.createElement('div'); grid.className = 'products-grid';
-
-productsToRender.forEach(product => { const card = createProductCard(product); grid.appendChild(card); });
-
-container.appendChild(grid); }
-
-// ✅ Фильтрация и поиск function filterProducts() { const category = document.getElementById('filter-category').value.toLowerCase(); const subcategory = document.getElementById('filter-subcategory').value.toLowerCase(); const section = document.getElementById('filter-section').value.toLowerCase(); const brand = document.getElementById('filter-brand').value.toLowerCase(); const country = document.getElementById('filter-country').value.toLowerCase(); const type = document.getElementById('filter-type').value.toLowerCase(); const priceMin = parseFloat(document.getElementById('filter-price-min').value) || 0; const priceMax = parseFloat(document.getElementById('filter-price-max').value) || Infinity; const searchText = (document.getElementById('searchInput')?.value || '').toLowerCase();
-
-filteredProducts = products.filter(p => { const pCategory = (p.category || '').toLowerCase(); const pSubcategory = (p.subcategory || '').toLowerCase(); const pSection = (p.section || p.subsubcategory || '').toLowerCase(); const pBrand = (p.brand || '').toLowerCase(); const pCountry = (p.country || '').toLowerCase(); const pType = (p.type || '').toLowerCase(); const pPrice = parseFloat(p.price) || 0; const pName = (p.name || '').toLowerCase(); const pDescription = (p.description || '').toLowerCase();
-
-if (category && pCategory !== category) return false;
-if (subcategory && pSubcategory !== subcategory) return false;
-if (section && pSection !== section) return false;
-if (brand && pBrand !== brand) return false;
-if (country && pCountry !== country) return false;
-if (type && pType !== type) return false;
-if (pPrice < priceMin || pPrice > priceMax) return false;
-
-if (searchText) {
-  if (!pName.includes(searchText) && !pDescription.includes(searchText)) return false;
+  countries.forEach(country => {
+    const option = document.createElement("option");
+    option.value = country;
+    option.textContent = country;
+    filterCountry.appendChild(option);
+  });
 }
 
-return true;
+// Функция отрисовки товаров на страницу
+function renderProducts(filteredProducts) {
+  if (filteredProducts.length === 0) {
+    productList.innerHTML = "<p>Товаров не найдено</p>";
+    return;
+  }
+  productList.innerHTML = filteredProducts
+    .map(p => `
+      <div class="product-card">
+        <img src="${p.img}" alt="${p.name}" />
+        <h3>${p.name}</h3>
+        <p>${p.description}</p>
+        <p><strong>Цена: ${p.price} ₽</strong></p>
+        <button onclick="addToFavorites(${p.id})">❤ В избранное</button>
+      </div>
+    `)
+    .join("");
+}
 
+// Фильтрация товаров по выбранным фильтрам и поиску
+function filterProducts() {
+  const searchTerm = searchInput.value.toLowerCase();
+  const categoryVal = filterCategory.value;
+  const subcategoryVal = filterSubcategory.value;
+  const brandVal = filterBrand.value;
+  const countryVal = filterCountry.value;
+  const priceMinVal = parseFloat(filterPriceMin.value) || 0;
+  const priceMaxVal = parseFloat(filterPriceMax.value) || Infinity;
+
+  const filtered = products.filter(p => {
+    return (
+      (categoryVal === "" || p.category === categoryVal) &&
+      (subcategoryVal === "" || p.subcategory === subcategoryVal) &&
+      (brandVal === "" || p.brand === brandVal) &&
+      (countryVal === "" || p.country === countryVal) &&
+      p.price >= priceMinVal &&
+      p.price <= priceMaxVal &&
+      (p.name.toLowerCase().includes(searchTerm) || p.description.toLowerCase().includes(searchTerm))
+    );
+  });
+  renderProducts(filtered);
+}
+
+// Инициализация
+fillFilterOptions();
+renderProducts(products);
+
+// Слушатели событий для фильтров и поиска
+searchInput.addEventListener("input", filterProducts);
+filterCategory.addEventListener("change", filterProducts);
+filterSubcategory.addEventListener("change", filterProducts);
+filterBrand.addEventListener("change", filterProducts);
+filterCountry.addEventListener("change", filterProducts);
+filterPriceMin.addEventListener("input", filterProducts);
+filterPriceMax.addEventListener("input", filterProducts);
+
+// Кнопка обновления страницы
+document.getElementById("refreshBtn").addEventListener("click", () => {
+  location.reload();
 });
-
-renderProducts(filteredProducts); }
-
-// ✅ Уникальные значения для фильтров function fillFilters() { function uniqueValues(field) { return [...new Set(products.map(p => (p[field] || '').trim()).filter(v => v !== ''))].sort(); }
-
-function fillSelect(id, values) { const select = document.getElementById(id); if (!select) return; select.options.length = 1; values.forEach(v => { const opt = document.createElement('option'); opt.value = v; opt.textContent = v; select.appendChild(opt); }); }
-
-fillSelect('filter-category', uniqueValues('category')); fillSelect('filter-subcategory', uniqueValues('subcategory')); fillSelect('filter-section', uniqueValues('section')); fillSelect('filter-brand', uniqueValues('brand')); fillSelect('filter-country', uniqueValues('country')); fillSelect('filter-type', uniqueValues('type')); }
-
-// ✅ Загрузка данных async function loadProducts() { try { const response = await fetch(url); const data = await response.json();
-
-products = data;
-fillFilters();
-filterProducts();
-
-} catch (err) { console.error('Ошибка загрузки:', err); document.getElementById('product-list').innerHTML = '<p>Ошибка загрузки товаров.</p>'; } }
-
-function setupEventListeners() { const ids = [ 'filter-category', 'filter-subcategory', 'filter-section', 'filter-brand', 'filter-country', 'filter-type', 'filter-price-min', 'filter-price-max', 'searchInput' ];
-
-ids.forEach(id => { const el = document.getElementById(id); if (el) { el.addEventListener('input', filterProducts); el.addEventListener('change', filterProducts); } }); }
-
-document.addEventListener('DOMContentLoaded', () => { loadProducts(); setupEventListeners(); });
