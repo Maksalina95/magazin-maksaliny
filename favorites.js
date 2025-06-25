@@ -1,31 +1,59 @@
 // favorites.js
 
-document.addEventListener('DOMContentLoaded', () => {
-  // При загрузке отмечаем уже избранные товары кнопками
-  const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-  document.querySelectorAll('.favorite-btn').forEach(btn => {
-    if (favorites.includes(btn.dataset.id)) {
-      btn.style.color = 'red';
-    }
-  });
+const favoritesKey = "favoritesList";
 
-  // Обработчик клика на кнопках "Избранное"
-  document.body.addEventListener('click', (e) => {
-    if (e.target.classList.contains('favorite-btn')) {
-      const productId = e.target.dataset.id;
-      let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+function getFavorites() {
+  return JSON.parse(localStorage.getItem(favoritesKey)) || [];
+}
 
-      if (favorites.includes(productId)) {
-        // Удаляем из избранного
-        favorites = favorites.filter(id => id !== productId);
-        e.target.style.color = 'gray';
-      } else {
-        // Добавляем в избранное
-        favorites.push(productId);
-        e.target.style.color = 'red';
-      }
+function saveFavorites(favs) {
+  localStorage.setItem(favoritesKey, JSON.stringify(favs));
+}
 
-      localStorage.setItem('favorites', JSON.stringify(favorites));
-    }
-  });
-});
+function addToFavorites(productId) {
+  let favs = getFavorites();
+  if (!favs.includes(productId)) {
+    favs.push(productId);
+    saveFavorites(favs);
+    alert("Товар добавлен в избранное!");
+  } else {
+    alert("Товар уже в избранном");
+  }
+}
+
+// Для страницы избранного (favorites.html)
+function renderFavorites(products) {
+  const favs = getFavorites();
+  const container = document.getElementById("favorites-list");
+
+  if (!container) return;
+
+  const favProducts = products.filter(p => favs.includes(p.id));
+  if (favProducts.length === 0) {
+    container.innerHTML = "<p>Избранных товаров пока нет</p>";
+    return;
+  }
+  container.innerHTML = favProducts
+    .map(p => `
+      <div class="product-card">
+        <img src="${p.img}" alt="${p.name}" />
+        <h3>${p.name}</h3>
+        <p>${p.description}</p>
+        <p><strong>Цена: ${p.price} ₽</strong></p>
+        <button onclick="removeFromFavorites(${p.id})">❌ Удалить из избранного</button>
+      </div>
+    `)
+    .join("");
+}
+
+function removeFromFavorites(productId) {
+  let favs = getFavorites();
+  favs = favs.filter(id => id !== productId);
+  saveFavorites(favs);
+  renderFavorites(window.products || []); // повторно отрисовать
+}
+
+// Если на странице favorites.html
+if (document.getElementById("favorites-list")) {
+  renderFavorites(window.products || []);
+}
