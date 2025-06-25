@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Избранное — Магазин Максолины</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fff0f5;
+      color: #4b2e2e;
+      margin: 0;
+      padding: 20px;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    h1 {
+      text-align: center;
+      color: #a63b3b;
+      margin-bottom: 30px;
+    }
+    #favorites-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 20px;
+    }
+    .empty-msg {
+      text-align: center;
+      font-style: italic;
+      margin-top: 50px;
+      color: #a63b3b;
+    }
+    nav {
+      margin-bottom: 20px;
+    }
+    nav a {
+      margin-right: 12px;
+      color: #a63b3b;
+      font-weight: bold;
+      text-decoration: none;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>❤ Избранное</h1>
+  </header>
+  <nav>
+    <a href="index.html">🏠 Главная</a>
+    <a href="category.html">🗂 Категории</a>
+    <a href="contacts.html">📞 Контакты</a>
+  </nav>
+  <main>
+    <div id="favorites-list">
+      <p>Загрузка избранного...</p>
+    </div>
+  </main>
+  <script src="favorites.js"></script>
+</body>
+</html>
