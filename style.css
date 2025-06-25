@@ -1,17 +1,18 @@
-/* style.css */
-
+/* Общие стили */
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: #f7e9e9;
-  color: #5a2e2e;
+  background-color: #fff7f7;
+  color: #4b2e2e;
 }
 
+/* Контейнер и разметка */
 .container {
   display: flex;
   min-height: 100vh;
 }
 
+/* Боковое меню */
 aside {
   width: 220px;
   background-color: #f8eaea;
@@ -30,18 +31,65 @@ aside a {
   color: #333;
   text-decoration: none;
   font-weight: bold;
+  transition: color 0.3s ease;
 }
 
 aside a:hover {
+  color: #a63b3b;
   text-decoration: underline;
 }
 
+/* Основной контент */
 main {
   flex: 1;
   padding: 20px;
   max-width: 900px;
+  background-color: #fff;
+  box-shadow: inset 0 0 15px rgba(166, 59, 59, 0.1);
+  border-radius: 12px;
 }
 
+/* Слайдер */
+.slider-container {
+  position: relative;
+  max-width: 700px;
+  margin: 0 auto 30px;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(166, 59, 59, 0.2);
+}
+
+.slide {
+  display: none;
+  width: 100%;
+  border-radius: 12px;
+}
+
+.slide.active {
+  display: block;
+}
+
+.dots {
+  text-align: center;
+  margin: 10px 0;
+}
+
+.dot {
+  cursor: pointer;
+  height: 12px;
+  width: 12px;
+  margin: 0 5px;
+  background-color: #ddd;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.3s ease;
+}
+
+.dot.active {
+  background-color: #a63b3b;
+}
+
+/* Фильтры и поиск */
 .filters {
   display: flex;
   flex-wrap: wrap;
@@ -60,12 +108,22 @@ main {
   font-size: 14px;
   font-weight: 600;
   color: #4b2e2e;
+  transition: border-color 0.3s ease;
+}
+
+.filters select:focus,
+.filters input[type="number"]:focus,
+.filters input[type="text"]:focus {
+  outline: none;
+  border-color: #a63b3b;
 }
 
 .filters label {
   font-weight: 600;
   color: #a63b3b;
   margin-right: 6px;
+  display: flex;
+  align-items: center;
 }
 
 .filters .price-range {
@@ -74,73 +132,93 @@ main {
   gap: 6px;
 }
 
-.product-card {
-  border: 1px solid #d3a1a1;
-  border-radius: 12px;
-  padding: 12px;
-  margin-bottom: 16px;
-  background: #fff;
-  box-shadow: 0 0 6px rgba(166, 59, 59, 0.2);
-}
-
-.product-card img {
-  max-width: 100%;
-  border-radius: 8px;
-  margin-bottom: 8px;
-}
-
-.product-card h3 {
-  margin: 0 0 8px;
-  color: #a63b3b;
-}
-
-.product-card button {
-  background-color: #a63b3b;
-  border: none;
-  color: white;
-  padding: 8px 12px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 700;
-  transition: background-color 0.3s ease;
-}
-
-.product-card button:hover {
-  background-color: #7a2929;
-}
-
+/* Кнопка обновления */
 button#refreshBtn {
-  position: fixed;
-  bottom: 16px;
-  right: 16px;
-  padding: 10px 16px;
   background: #d37a7a;
   color: #fff;
   border: none;
   border-radius: 8px;
   font-size: 14px;
-  z-index: 999;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 button#refreshBtn:hover {
   background-color: #a04d56;
 }
 
-/* Адаптив */
+/* Каталог товаров */
+#product-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 16px;
+}
+
+/* Карточка товара */
+.product-card {
+  border: 1px solid #d3a1a1;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #fff;
+  box-shadow: 0 0 6px rgba(166, 59, 59, 0.1);
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+  box-shadow: 0 0 15px rgba(166, 59, 59, 0.3);
+}
+
+.product-card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-bottom: 1px solid #d3a1a1;
+}
+
+.product-card .product-info {
+  padding: 12px 14px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.product-card h3 {
+  margin: 0 0 8px 0;
+  font-size: 16px;
+  color: #a63b3b;
+}
+
+.product-card p {
+  flex-grow: 1;
+  margin: 0 0 10px 0;
+  font-size: 14px;
+  color: #4b2e2e;
+}
+
+.product-card .price {
+  font-weight: 700;
+  color: #7a2929;
+  font-size: 16px;
+}
+
+/* Адаптивность */
 @media (max-width: 600px) {
+  main {
+    max-width: 100%;
+    padding: 15px;
+  }
   .filters {
     flex-direction: column;
     align-items: stretch;
   }
-  .filters input, .filters select {
+  .filters input,
+  .filters select {
     width: 100%;
   }
-  aside {
-    display: none; /* Скрыть боковое меню на мобильных */
-  }
-  main {
-    max-width: 100%;
-    padding: 10px;
+  #product-list {
+    grid-template-columns: 1fr;
   }
 }
