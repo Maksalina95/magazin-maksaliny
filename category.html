@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Категории — Магазин Максалины</title>
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -22,22 +22,46 @@
 
     <main>
       <h1>Категории товаров</h1>
-      <div class="category-grid">
-        <div class="category-card" onclick="location.href='index.html?category=Техника'">
-          <img src="images/category-tech.jpg" alt="Техника" />
-          <h3>Техника</h3>
-        </div>
-        <div class="category-card" onclick="location.href='index.html?category=Посуда'">
-          <img src="images/category-dishes.jpg" alt="Посуда" />
-          <h3>Посуда</h3>
-        </div>
-        <div class="category-card" onclick="location.href='index.html?category=Текстиль'">
-          <img src="images/category-textile.jpg" alt="Текстиль" />
-          <h3>Текстиль</h3>
-        </div>
-        <!-- Можешь добавить другие категории по мере необходимости -->
+      <div class="category-grid" id="categoryGrid">
+        <p>Загрузка категорий...</p>
       </div>
     </main>
   </div>
+
+  <script>
+    const sheetId = '1gBcuPzWv_nH2i7sWyCaERVCjO-hLg8EcndPkEMlNqgw';
+    const url = https://opensheet.elk.sh/${sheetId}/Sheet1;
+    const categoryGrid = document.getElementById('categoryGrid');
+    const shownCategories = new Set();
+
+    fetch(url)
+      .then(res => res.json())
+      .then(data => {
+        categoryGrid.innerHTML = '';
+        data.forEach(item => {
+          const cat = item['категория'];
+          const img = item['изображение'];
+
+          if (cat && img && !shownCategories.has(cat)) {
+            shownCategories.add(cat);
+
+            const card = document.createElement('div');
+            card.className = 'category-card';
+            card.onclick = () => {
+              window.location.href = index.html?category=${encodeURIComponent(cat)};
+            };
+            card.innerHTML = `
+              <img src="${img}" alt="${cat}" />
+              <h3>${cat}</h3>
+            `;
+            categoryGrid.appendChild(card);
+          }
+        });
+      })
+      .catch(err => {
+        categoryGrid.innerHTML = '<p>Не удалось загрузить категории</p>';
+        console.error(err);
+      });
+  </script>
 </body>
 </html>
