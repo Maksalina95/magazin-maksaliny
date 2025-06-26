@@ -246,3 +246,39 @@ main {
 .address-info a:hover {
   text-decoration: none;
 }
+
+/* === 🧱 Категории на главной === */
+#category-gallery {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 16px;
+}
+
+.category-tile {
+  text-align: center;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+  padding: 10px;
+  transition: transform 0.2s;
+}
+
+.category-tile:hover {
+  transform: scale(1.03);
+}
+
+.category-tile img {
+  width: 100%;
+  max-height: 120px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.category-tile span {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+  color: #a63b3b;
+  font-size: 14px;
+}
