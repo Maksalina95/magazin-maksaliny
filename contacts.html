@@ -4,29 +4,89 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Контакты — Магазин Максолины</title>
-  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9e9e9;
+      color: #5a2e2e;
+      margin: 20px;
+      padding: 0 15px;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+    h1 {
+      font-weight: 700;
+      color: #a63b3b;
+    }
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin: 20px 0 40px;
+    }
+    nav a {
+      background-color: #a63b3b;
+      color: white;
+      text-decoration: none;
+      padding: 10px 18px;
+      border-radius: 5px;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+    nav a:hover {
+      background-color: #7a2929;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+      max-width: 400px;
+      margin: 0 auto 30px auto;
+    }
+    li {
+      background-color: #f2dede;
+      margin-bottom: 12px;
+      padding: 12px 15px;
+      border-radius: 6px;
+      font-size: 18px;
+      box-shadow: 0 0 6px rgba(166, 59, 59, 0.3);
+    }
+    a {
+      color: #a63b3b;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    a:hover {
+      text-decoration: underline;
+      color: #7a2929;
+    }
+  </style>
 </head>
 <body>
+
   <header>
-    <h1>📞 Контакты</h1>
+    <h1>Контакты</h1>
   </header>
 
+  <!-- 🔗 Навигация -->
   <nav>
-    <a href="index.html">🏠 Главная</a>
-    <a href="delivery.html">🚚 Доставка</a>
-    <a href="contacts.html">📞 Контакты</a>
-    <a href="address.html">📍 Адрес</a>
-    <a href="terms.html">📜 Условия</a>
+    <a href="index.html">Главная</a>
+    <a href="delivery.html">Доставка</a>
+    <a href="terms.html">Условия</a>
+    <a href="address.html">Адрес</a>
+    <a href="contacts.html">Контакты</a>
   </nav>
 
-  <main>
-    <ul>
-      <li>WhatsApp: <a href="https://wa.me/79376280080" target="_blank">+7 937 628-00-80</a></li>
-      <li>WhatsApp: <a href="https://wa.me/89649626694" target="_blank">+7 964 962-66-94</a></li>
-      <li>Telegram: <a href="https://t.me/internet_magazin_v_ingushetii" target="_blank">@internet_magazin_v_ingushetii</a></li>
-      <li>Telegram: <a href="https://t.me/magazin_maksaliny" target="_blank">@magazin_maksaliny</a></li>
-      <li>Instagram: <a href="https://instagram.com/posuda_i_tehnika_u_maksaliny" target="_blank">@posuda_i_tehnika_u_maksалiny</a></li>
-    </ul>
-  </main>
+  <!-- 📞 Контактная информация -->
+  <ul>
+    <li>WhatsApp: <a href="https://wa.me/79376280080" target="_blank">+7 937 628-00-80</a></li>
+    <li>WhatsApp: <a href="https://wa.me/89649626694" target="_blank">+7 964 962-66-94</a></li>
+    <li>Telegram: <a href="https://t.me/internet_magazin_v_ingushetii" target="_blank">@internet_magazin_v_ingushetii</a></li>
+    <li>Telegram: <a href="https://t.me/magazin_maksaliny" target="_blank">@magazin_maksaliny</a></li>
+    <li>Instagram: <a href="https://instagram.com/posuda_i_tehnika_u_maksaliny" target="_blank">posuda_i_tehnika_u_maksaliny</a></li>
+  </ul>
+
 </body>
 </html>
