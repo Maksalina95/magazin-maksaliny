@@ -1,86 +1,81 @@
 const sheetId = '1gBcuPzWv_nH2i7sWyCaERVCjO-hLg8EcndPkEMlNqgw';
 const url = `https://opensheet.elk.sh/${sheetId}/Sheet1`;
 
-const gallery = document.getElementById('category-gallery');
-const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+const productList = document.getElementById('product-list');
 
 fetch(url)
   .then(res => res.json())
   .then(data => {
-    const valid = data.filter(item => item.категория && item.фото && item.название);
-    const grouped = groupBy(valid, 'категория');
+    const filtered = data.filter(item => item.фото && item.название && item.цена);
+    productList.innerHTML = '';
 
-    gallery.innerHTML = '';
-
-    Object.entries(grouped).forEach(([category, items]) => {
-      const section = document.createElement('section');
-      section.className = 'category-section';
-
-      const title = document.createElement('h2');
-      title.textContent = category;
-      section.appendChild(title);
-
-      const grid = document.createElement('div');
-      grid.className = 'product-grid';
-
-      items.forEach(item => {
-        const card = document.createElement('div');
-        card.className = 'product-card';
-
-        let media = '';
-        if (item.видео && item.видео.includes('http')) {
-          media = <video src="${item.видео}" controls muted></video>;
-        } else {
-          media = <img src="${item.фото}" alt="${item.название}" />;
-        }
-
-        card.innerHTML = `
-          ${media}
-          <h3>${item.название}</h3>
-          ${item.описание ? <p>${item.описание}</p> : ''}
-          <strong>${item.цена} ₽</strong>
-          <div class="card-buttons">
-            <a href="https://wa.me/79376280080" target="_blank">WhatsApp</a>
-            <button class="fav-btn" data-id="${item.название}">⭐</button>
-          </div>
-        `;
-
-        // отметка как избранное
-        if (favorites.includes(item.название)) {
-          card.querySelector('.fav-btn').classList.add('active');
-        }
-
-        // обработка клика на ⭐
-        card.querySelector('.fav-btn').addEventListener('click', (e) => {
-          const name = e.target.dataset.id;
-          const idx = favorites.indexOf(name);
-          if (idx === -1) {
-            favorites.push(name);
-            e.target.classList.add('active');
-          } else {
-            favorites.splice(idx, 1);
-            e.target.classList.remove('active');
-          }
-          localStorage.setItem('favorites', JSON.stringify(favorites));
-        });
-
-        grid.appendChild(card);
+    // Автоподсказки в поиске
+    const datalist = document.getElementById('autocompleteList');
+    if (datalist) {
+      datalist.innerHTML = '';
+      filtered.forEach(item => {
+        const option = document.createElement('option');
+        option.value = item.название;
+        datalist.appendChild(option);
       });
+    }
 
-      section.appendChild(grid);
-      gallery.appendChild(section);
+    // Фильтрация по категории из ?category=
+    const urlParams = new URLSearchParams(window.location.search);
+    const selectedCategory = urlParams.get('category');
+    const visibleItems = selectedCategory
+      ? filtered.filter(item => item.категория?.toLowerCase() === selectedCategory.toLowerCase())
+      : filtered;
+
+    // Отрисовка товаров
+    visibleItems.forEach((item, index) => {
+      const productEl = document.createElement('div');
+      productEl.className = 'product-card';
+      productEl.innerHTML = `
+        <img src="${item.фото}" alt="${item.название}" />
+        <h3>${item.название}</h3>
+        <p>${item.описание || ''}</p>
+        ${item.видео ? <video src="${item.видео}" controls></video> : ''}
+        <strong>${item.цена} ₽</strong><br/>
+        <button class="fav-btn" data-id="${index}">⭐</button>
+        <a href="https://wa.me/79376280080" target="_blank">WhatsApp</a>
+      `;
+      productList.appendChild(productEl);
+    });
+
+    // Кнопки "⭐ Избранное"
+    document.querySelectorAll('.fav-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.getAttribute('data-id');
+        let favs = JSON.parse(localStorage.getItem('favorites')) || [];
+        if (!favs.includes(id)) {
+          favs.push(id);
+          localStorage.setItem('favorites', JSON.stringify(favs));
+          btn.textContent = '✅';
+        }
+      });
     });
   })
   .catch(err => {
-    gallery.innerHTML = '<p>Ошибка загрузки товаров.</p>';
+    productList.innerHTML = '<p>Ошибка загрузки товаров.</p>';
     console.error(err);
   });
 
-function groupBy(array, key) {
-  return array.reduce((acc, obj) => {
-    const group = obj[key] || 'Другое';
-    if (!acc[group]) acc[group] = [];
-    acc[group].push(obj);
-    return acc;
-  }, {});
+// 🔍 Поиск по названию
+const searchInput = document.getElementById('searchInput');
+if (searchInput) {
+  searchInput.addEventListener('input', () => {
+    const query = searchInput.value.toLowerCase();
+    const cards = document.querySelectorAll('.product-card');
+    cards.forEach(card => {
+      const name = card.querySelector('h3').textContent.toLowerCase();
+      card.style.display = name.includes(query) ? '' : 'none';
+    });
+  });
+}
+
+// 🔄 Обновление сайта
+const refreshBtn = document.getElementById('refreshBtn');
+if (refreshBtn) {
+  refreshBtn.onclick = () => location.reload();
 }
