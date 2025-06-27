@@ -282,3 +282,11 @@ main {
   color: #a63b3b;
   font-size: 14px;
 }
+
+/* 🗣 Стили для отзывов */
+#reviewsGallery .product-card img {
+  object-fit: contain;
+  width: 100%;
+  max-height: 400px;
+  border-radius: 10px;
+}
