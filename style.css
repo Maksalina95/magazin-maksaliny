@@ -283,10 +283,14 @@ main {
   font-size: 14px;
 }
 
-/* 🗣 Стили для отзывов */
+/* 🗣 Отзывы: оригинальный размер изображения */
 #reviewsGallery .product-card img {
-  object-fit: contain;
-  width: 100%;
-  max-height: 400px;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: none;
+  display: block;
+  margin: 0 auto;
   border-radius: 10px;
 }
