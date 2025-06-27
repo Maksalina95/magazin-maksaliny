@@ -33,8 +33,8 @@ function showProducts(list) {
 
     el.innerHTML = `
       ${item.видео 
-        ? <video controls src="${item.видео}"></video> 
-        : <img src="${item.фото}" alt="${item.название}" />
+        ? `<video controls src="${item.видео}"></video>` 
+        : `<img src="${item.фото}" alt="${item.название}" />`
       }
       <h3>${item.название}</h3>
       ${item.описание ? <p>${item.описание}</p> : ''}
