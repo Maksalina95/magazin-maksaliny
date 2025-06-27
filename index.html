@@ -76,28 +76,28 @@
     </main>
   </div>
 
-  <!-- 📜 Скрипты -->
-  <script src="filterSearch.js"></script>
-  <script src="favorites.js"></script>
-  <script src="service-worker.js"></script>
-  <script>
-    // 🎞 Слайдер
-    let slides = document.querySelectorAll(".slide");
-    let dots = document.querySelectorAll(".dot");
-    let currentSlide = 0;
+ <!-- 📜 Скрипты -->
+<script src="filter-search.js"></script>
+<script src="favorites.js"></script>
+<script src="service-worker.js"></script>
+<script>
+  // 🎞 Слайдер
+  let slides = document.querySelectorAll(".slide");
+  let dots = document.querySelectorAll(".dot");
+  let currentSlide = 0;
 
-    function showSlide(index) {
-      slides[currentSlide].classList.remove("active");
-      dots[currentSlide].classList.remove("active");
-      currentSlide = index;
-      slides[currentSlide].classList.add("active");
-      dots[currentSlide].classList.add("active");
-    }
+  function showSlide(index) {
+    slides[currentSlide].classList.remove("active");
+    dots[currentSlide].classList.remove("active");
+    currentSlide = index;
+    slides[currentSlide].classList.add("active");
+    dots[currentSlide].classList.add("active");
+  }
 
-    setInterval(() => {
-      let next = (currentSlide + 1) % slides.length;
-      showSlide(next);
-    }, 5000);
-  </script>
+  setInterval(() => {
+    let next = (currentSlide + 1) % slides.length;
+    showSlide(next);
+  }, 5000);
+</script>
 </body>
 </html>
