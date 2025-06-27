@@ -1,5 +1,5 @@
 const sheetId = '1gBcuPzWv_nH2i7sWyCaERVCjO-hLg8EcndPkEMlNqgw';
-const url = https://opensheet.elk.sh/${sheetId}/Sheet1;
+const url = `https://opensheet.elk.sh/${sheetId}/Sheet1`;
 
 const favoritesList = document.getElementById('favorites-list');
 const favoriteIds = JSON.parse(localStorage.getItem('favorites') || '[]');
