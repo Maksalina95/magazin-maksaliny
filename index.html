@@ -1,3 +1,5 @@
+Конечно! Вот твой обновлённый index.html с добавленным контейнером для товаров <div id="product-list" class="product-list"></div> сразу после блока фильтров, при этом всё остальное осталось без изменений:
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -34,7 +36,7 @@
 
       <!-- 🔍 Поиск -->
       <div class="filters">
-        <input type="text" id="searchInput" placeholder="🔍 Поиск по названию..." list="autocompleteList">
+        <input type="text" id="searchInput" placeholder="🔍 Поиск по названию..." list="autocompleteList" />
         <datalist id="autocompleteList"></datalist>
       </div>
 
@@ -65,6 +67,9 @@
           <input type="number" id="filter-price-max" placeholder="100000" min="0" />
         </div>
       </div>
+
+      <!-- Здесь добавляем список товаров -->
+      <div id="product-list" class="product-list"></div>
 
       <!-- 🧱 Категории с фото-сеткой -->
       <div id="category-gallery">
@@ -98,3 +103,8 @@
   </script>
 </body>
 </html>
+
+
+---
+
+Если хочешь, могу помочь и с CSS для .product-list и .product-card — чтобы товары красиво отображались. Просто скажи!
