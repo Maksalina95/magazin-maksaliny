@@ -87,7 +87,13 @@ function applyFilters() {
 function updateFilters(data) {
   const filterFields = ['category', 'subcategory', 'section', 'brand', 'country', 'type'];
   filterFields.forEach(field => {
-    const select = document.getElementById(filter-${field});
+    const select = document.getElementById(`
+    
+    
+    
+    
+    
+    filter-${field}`);
     if (!select) return;
     const unique = [...new Set(data.map(item => item[field]).filter(Boolean))];
     unique.forEach(val => {
