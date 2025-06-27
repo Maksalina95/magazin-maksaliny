@@ -1,4 +1,6 @@
-<!-- ✅ reviews.html --><!DOCTYPE html><html lang="ru">
+<!-- ✅ reviews.html -->
+<!DOCTYPE html>
+<html lang="ru">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -17,21 +19,29 @@
       <a href="address.html">📍 Адрес</a>
       <a href="terms.html">📜 Правила</a>
       <a href="reviews.html" class="active">🗣 Отзывы</a>
-    </aside><main>
-  <h1>🗣 Отзывы клиентов</h1>
-  <div class="category-grid">
-    <div class="product-card">
-      <img src="images/review1.jpg" alt="Отзыв 1">
-      <p>Очень довольна покупкой! Спасибо 🌟</p>
-    </div>
-    <div class="product-card">
-      <img src="images/review2.jpg" alt="Отзыв 2">
-      <p>Товар пришёл быстро, всё качественно!</p>
-    </div>
-    <!-- Добавь больше отзывов сюда -->
+    </aside>
+    <main>
+      <h1>🗣 Отзывы клиентов</h1>
+      <div id="reviewsGallery" class="category-grid"></div>
+    </main>
   </div>
-</main>
 
-  </div>
+  <script>
+    // Подгрузка отзывов (скриншотов)
+    const gallery = document.getElementById('reviewsGallery');
+    const maxReviews = 50; // Сколько максимум отзывов загружать
+
+    for (let i = 1; i <= maxReviews; i++) {
+      const img = new Image();
+      img.src = images/reviews/review${i}.jpg;
+      img.alt = Отзыв ${i};
+      img.onload = () => {
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.appendChild(img);
+        gallery.appendChild(card);
+      };
+    }
+  </script>
 </body>
 </html>
