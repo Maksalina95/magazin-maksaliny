@@ -287,7 +287,7 @@ main {
 #reviewsGallery .product-card img {
   width: auto;
   height: auto;
-  max-width: 100%;
+  max-width: 90vw; /* 👉 вот здесь! ограничиваем ширину окна */
   max-height: 100%;
   object-fit: none;
   display: block;
