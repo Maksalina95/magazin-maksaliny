@@ -33,7 +33,7 @@
 
     for (let i = 1; i <= maxReviews; i++) {
       const img = new Image();
-      img.src = images/reviews/review${i}.jpg;
+      `img.src = images/reviews/review${i}.jpg`;
       img.alt = Отзыв ${i};
       img.onload = () => {
         const card = document.createElement('div');
