@@ -21,7 +21,7 @@
 
   <script>
     const sheetId = '1gBcuPzWv_nH2i7sWyCaERVCjO-hLg8EcndPkEMlNqgw';
-    const url = https://opensheet.elk.sh/${sheetId}/Sheet1;
+    const url = `https://opensheet.elk.sh/${sheetId}/Sheet1`;
 
     const params = new URLSearchParams(window.location.search);
     const selectedCategory = params.get('category');
@@ -46,7 +46,7 @@
             <img src="${item.фото}" alt="${item.название}" />
             <h3>${item.название}</h3>
             <p>${item.цена} ₽</p>
-            <a href="https://wa.me/79000000000" class="buy-button">Купить в WhatsApp</a>
+            <a href="https://wa.me/79376280080" class="buy-button">Купить в WhatsApp</a>
           `;
           productList.appendChild(card);
         });
