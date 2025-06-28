@@ -1,7 +1,7 @@
 // 📦 filter-search.js — логика загрузки и фильтрации товаров (без категорий)
 
 const sheetId = '1gBcuPzWv_nH2i7sWyCaERVCjO-hLg8EcndPkEMlNqgw';
-const url = https://opensheet.elk.sh/${sheetId}/Sheet1;
+const url = `https://opensheet.elk.sh/${sheetId}/Sheet1`;
 
 const productList = document.getElementById('product-list');
 const searchInput = document.getElementById('searchInput');
@@ -33,10 +33,10 @@ function showProducts(list) {
 
     el.innerHTML = `
       ${item.видео 
-        ? <video controls src="${item.видео}"></video> 
-        : <img src="${item.фото}" alt="${item.название}" />}
+        ? `<video controls src="${item.видео}"></video>` 
+        : `<img src="${item.фото}" alt="${item.название}" />`}
       <h3>${item.название}</h3>
-      ${item.описание ? <p>${item.описание}</p> : ''}
+      ${item.описание ? `<p>${item.описание}</p>` : ''}
       <strong>${item.цена} ₽</strong>
       <div class="card-buttons">
         <a href="https://wa.me/79376280080" target="_blank">WhatsApp</a>
@@ -87,7 +87,7 @@ function applyFilters() {
 function updateFilters(data) {
   const filterFields = ['category', 'subcategory', 'section', 'brand', 'country', 'type'];
   filterFields.forEach(field => {
-    const select = document.getElementById(filter-${field});
+    const select = document.getElementById(`filter-${field}`);
     if (!select) return;
     const unique = [...new Set(data.map(item => item[field]).filter(Boolean))];
     unique.forEach(val => {
