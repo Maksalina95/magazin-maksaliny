@@ -1,8 +1,8 @@
-// 📁 category-loader.js — загружает категории с фото из Google Таблицы
+// category-loader.js — загружает категории с фото из Google Таблицы
 const sheetId = '1gBcuPzWv_nH2i7sWyCaERVCjO-hLg8EcndPkEMlNqgw';
-const url = `https://opensheet.elk.sh/${sheetId}/Sheet1`;
+const url = https://opensheet.elk.sh/${sheetId}/Sheet1;
 
-const categoryGallery = document.getElementById('category-gallery');
+const categoryGallery = document.getElementById('categoryGrid'); // 💡 Исправлено!
 
 fetch(url)
   .then(res => res.json())
