@@ -22,7 +22,7 @@ fetch(url)
       const tile = document.createElement('div');
       tile.className = 'category-tile';
       tile.innerHTML = `
-        <a href="category.html?category=${encodeURIComponent(category)}">
+        <a href="category-products.html?category=${encodeURIComponent(category)}">
           <img src="${image}" alt="${category}" />
           <span>${category}</span>
         </a>
