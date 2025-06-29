@@ -271,7 +271,8 @@ main {
 .category-tile img {
   width: 100%;
   max-height: 120px;
-  object-fit: cover;
+  object-fit: contain;
+  background-color: #fff;
   border-radius: 8px;
 }
 
@@ -287,7 +288,7 @@ main {
 #reviewsGallery .product-card img {
   width: auto;
   height: auto;
-  max-width: 90vw; /* 👉 вот здесь! ограничиваем ширину окна */
+  max-width: 90vw;
   max-height: 100%;
   object-fit: none;
   display: block;
@@ -295,38 +296,33 @@ main {
   border-radius: 10px;
 }
 
-#category-gallery {
-  margin-top: 30px;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-  gap: 16px;
+/* === 📱 Исправления и дополнения === */
+
+/* 📱 Показывать автозаполнение поиска */
+input[list]::-webkit-calendar-picker-indicator {
+  display: none !important;
 }
 
-.category-tile {
-  text-align: center;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 0 8px rgba(0,0,0,0.1);
-  padding: 10px;
-  transition: transform 0.2s;
+/* 📱 Прятать фильтры, когда они скрыты */
+#filters.hidden {
+  display: none;
 }
 
-.category-tile:hover {
-  transform: scale(1.03);
-}
+/* 📱 Адаптация внешнего вида фильтров и категорий */
+@media (max-width: 768px) {
+  main {
+    padding: 10px 12px;
+  }
 
-.category-tile img {
-  width: 100%;
-  max-height: 120px;
-  object-fit: contain; /* изменила с cover на contain */
-  background-color: #fff;
-  border-radius: 8px;
-}
+  .product-card h3 {
+    font-size: 14px;
+  }
 
-.category-tile span {
-  display: block;
-  margin-top: 10px;
-  font-weight: bold;
-  color: #a63b3b;
-  font-size: 14px;
+  .category-tile img {
+    max-height: 100px;
+  }
+
+  .category-tile span {
+    font-size: 13px;
+  }
 }
