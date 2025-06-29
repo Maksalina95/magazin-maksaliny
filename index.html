@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="ru">
+<!DOCTYPE html><html lang="ru">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,7 +10,7 @@
   <div class="container">
     <aside>
       <h2>Меню</h2>
-      <a href="index.html">🏠 Главная</a>
+      <a href="index.html" class="active">🏠 Главная</a>
       <a href="favorites.html">⭐ Избранное</a>
       <a href="delivery.html">🚚 Доставка</a>
       <a href="contacts.html">📞 Контакты</a>
@@ -19,87 +18,77 @@
       <a href="reviews.html">🗣 Отзывы</a>
       <a href="#" onclick="location.reload()">🔄 Обновить сайт</a>
       <a href="terms.html">📜 Правила</a>
-    </aside>
-
-    <main>
-      <!-- 🎞 Слайдер -->
-      <div class="slider-container">
-        <img src="images/reklama1.jpg" class="slide active" alt="Реклама 1">
-        <img src="images/reklama2.jpg" class="slide" alt="Реклама 2">
-      </div>
-      <div class="dots">
-        <span class="dot active" onclick="showSlide(0)"></span>
-        <span class="dot" onclick="showSlide(1)"></span>
-      </div>
-
-      <!-- 🔍 Поиск -->
-      <div class="filters">
-        <input type="text" id="searchInput" placeholder="🔍 Поиск по названию..." list="autocompleteList" />
-        <datalist id="autocompleteList"></datalist>
-      </div>
-
-      <!-- 🎯 Фильтры -->
-      <div class="filters" id="filters">
-        <label>🗂 Категория:</label>
-        <select id="filter-category"><option value="">Все</option></select>
-
-        <label>📁 Подкатегория:</label>
-        <select id="filter-subcategory"><option value="">Все</option></select>
-
-        <label>📦 Раздел:</label>
-        <select id="filter-section"><option value="">Все</option></select>
-
-        <label>🏷 Бренд:</label>
-        <select id="filter-brand"><option value="">Все</option></select>
-
-        <label>🌍 Страна:</label>
-        <select id="filter-country"><option value="">Все</option></select>
-
-        <label>🛠 Тип:</label>
-        <select id="filter-type"><option value="">Все</option></select>
-
-        <div class="price-range">
-          <label for="filter-price-min">💰 от:</label>
-          <input type="number" id="filter-price-min" placeholder="0" min="0" />
-          <label for="filter-price-max">до:</label>
-          <input type="number" id="filter-price-max" placeholder="100000" min="0" />
-        </div>
-      </div>
-
-      <!-- Здесь добавляем список товаров -->
-      <div id="product-list" class="product-list"></div>
-
-      <!-- 🧱 Категории с фото-сеткой -->
-      <div id="category-gallery">
-        <!-- Категории будут подгружаться из Google Таблицы -->
-      </div>
-    </main>
+    </aside><main>
+  <!-- 🎞 Слайдер -->
+  <div class="slider-container">
+    <img src="images/reklama1.jpg" class="slide active" alt="Реклама 1">
+    <img src="images/reklama2.jpg" class="slide" alt="Реклама 2">
+  </div>
+  <div class="dots">
+    <span class="dot active" onclick="showSlide(0)"></span>
+    <span class="dot" onclick="showSlide(1)"></span>
   </div>
 
- <!-- 📜 Скрипты -->
-<script src="filter-search.js"></script>
-<script src="favorites.js"></script>
-<script src="service-worker.js"></script>
-<script src="category-loader.js"></script>
-<script src="app.js"></script>  
-<script>
-  // 🎞 Слайдер
-  let slides = document.querySelectorAll(".slide");
-  let dots = document.querySelectorAll(".dot");
-  let currentSlide = 0;
+  <!-- 🔍 Поиск -->
+  <div class="filters">
+    <input type="text" id="searchInput" placeholder="🔍 Поиск по названию..." list="autocompleteList" />
+    <datalist id="autocompleteList"></datalist>
+  </div>
 
-  function showSlide(index) {
-    slides[currentSlide].classList.remove("active");
-    dots[currentSlide].classList.remove("active");
-    currentSlide = index;
-    slides[currentSlide].classList.add("active");
-    dots[currentSlide].classList.add("active");
-  }
+  <!-- 🎯 Фильтры (будут скрываться, если поиска нет) -->
+  <div class="filters" id="filters" style="display:none">
+    <label>🗂 Категория:</label>
+    <select id="filter-category"><option value="">Все</option></select>
 
-  setInterval(() => {
-    let next = (currentSlide + 1) % slides.length;
-    showSlide(next);
-  }, 5000);
-</script>
-</body>
+    <label>📁 Подкатегория:</label>
+    <select id="filter-subcategory"><option value="">Все</option></select>
+
+    <label>📦 Раздел:</label>
+    <select id="filter-section"><option value="">Все</option></select>
+
+    <label>🏷 Бренд:</label>
+    <select id="filter-brand"><option value="">Все</option></select>
+
+    <label>🌍 Страна:</label>
+    <select id="filter-country"><option value="">Все</option></select>
+
+    <label>🛠 Тип:</label>
+    <select id="filter-type"><option value="">Все</option></select>
+
+    <div class="price-range">
+      <label for="filter-price-min">💰 от:</label>
+      <input type="number" id="filter-price-min" placeholder="0" min="0" />
+      <label for="filter-price-max">до:</label>
+      <input type="number" id="filter-price-max" placeholder="100000" min="0" />
+    </div>
+  </div>
+
+  <!-- 🛍 Товары -->
+  <div id="product-list" class="product-list"></div>
+
+  <!-- 🧱 Категории с фото-сеткой -->
+  <div id="category-gallery">
+    <!-- Категории будут подгружаться из Google Таблицы -->
+  </div>
+</main>
+
+  </div>  <!-- 📜 Скрипты -->  <script src="favorites.js"></script>  <script src="app.js"></script>  <script>
+    // 🎞 Слайдер
+    let slides = document.querySelectorAll(".slide");
+    let dots = document.querySelectorAll(".dot");
+    let currentSlide = 0;
+
+    function showSlide(index) {
+      slides[currentSlide].classList.remove("active");
+      dots[currentSlide].classList.remove("active");
+      currentSlide = index;
+      slides[currentSlide].classList.add("active");
+      dots[currentSlide].classList.add("active");
+    }
+
+    setInterval(() => {
+      let next = (currentSlide + 1) % slides.length;
+      showSlide(next);
+    }, 5000);
+  </script></body>
 </html>
