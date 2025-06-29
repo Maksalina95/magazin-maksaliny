@@ -59,7 +59,7 @@ fetch(url)
           <img src="${item.фото}" alt="${item.название}" />
           <h3>${item.название}</h3>
           <p>${item.описание || ''}</p>
-          ${item.видео ? <video src="${item.видео}" controls></video>` : ''}
+          ${item.видео ? `<video src="${item.видео}" controls></video>` : ''}
           <strong>${item.цена} ₽</strong><br/>
           <button class="fav-btn" data-id="${index}">⭐</button>
           <a href="https://wa.me/79376280080" target="_blank">WhatsApp</a>
