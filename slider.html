@@ -31,10 +31,13 @@
     .slide {
       display: none;
       width: 100%;
+      max-height: 180px;
       height: auto;
+      object-fit: cover;
+      border-radius: 12px;
     }
 
-    .active {
+    .slide.active {
       display: block;
     }
 
@@ -70,6 +73,13 @@
 
     .back-button:hover {
       background: #7a2929;
+    }
+
+    /* 📱 Адаптация */
+    @media (max-width: 768px) {
+      .slide {
+        max-height: 140px;
+      }
     }
   </style>
 </head>
