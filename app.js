@@ -35,16 +35,18 @@ fetch(url)
       });
     }
 
-    // Автоподсказки для поиска
-    const datalist = document.getElementById('autocompleteList');
-    if (datalist) {
-      datalist.innerHTML = '';
-      filtered.forEach(item => {
-        const option = document.createElement('option');
-        option.value = item.название;
-        datalist.appendChild(option);
-      });
-    }
+    // 🔍 Новое автозаполнение без <datalist>
+    const suggestionsContainer = document.createElement('div');
+    suggestionsContainer.id = 'suggestions';
+    suggestionsContainer.style.position = 'absolute';
+    suggestionsContainer.style.background = '#fff';
+    suggestionsContainer.style.border = '1px solid #ccc';
+    suggestionsContainer.style.zIndex = '999';
+    suggestionsContainer.style.maxHeight = '150px';
+    suggestionsContainer.style.overflowY = 'auto';
+    suggestionsContainer.style.width = '90%';
+    suggestionsContainer.style.display = 'none';
+    searchInput.parentNode.appendChild(suggestionsContainer);
 
     // Функция показа товаров
     function renderProducts(items) {
@@ -57,7 +59,7 @@ fetch(url)
           <img src="${item.фото}" alt="${item.название}" />
           <h3>${item.название}</h3>
           <p>${item.описание || ''}</p>
-          ${item.видео ? `<video src="${item.видео}" controls></video>` : ''}
+          ${item.видео ? <video src="${item.видео}" controls></video>` : ''}
           <strong>${item.цена} ₽</strong><br/>
           <button class="fav-btn" data-id="${index}">⭐</button>
           <a href="https://wa.me/79376280080" target="_blank">WhatsApp</a>
@@ -79,29 +81,59 @@ fetch(url)
       });
     }
 
-    // Обработчик поиска
+    // Обработчик поиска с подсказками
     if (searchInput) {
       searchInput.addEventListener('input', () => {
         const query = searchInput.value.trim().toLowerCase();
 
+        const matched = filtered.filter(item =>
+          item.название.toLowerCase().includes(query)
+        );
+
+        // Показать/скрыть блоки
         if (query === '') {
-          // Показать только категории, скрыть фильтры и товары
           if (filters) filters.style.display = 'none';
           if (productList) productList.style.display = 'none';
-          if (categoryGallery) categoryGallery.style.display = 'grid'; // или block, как у тебя в CSS
+          if (categoryGallery) categoryGallery.style.display = 'grid';
+          suggestionsContainer.style.display = 'none';
         } else {
-          // Показать фильтры и товары, скрыть категории
           if (filters) filters.style.display = 'flex';
-          if (productList) productList.style.display = 'grid'; // или block
+          if (productList) productList.style.display = 'grid';
           if (categoryGallery) categoryGallery.style.display = 'none';
-
-          // Фильтрация товаров по названию
-          const matched = filtered.filter(item => item.название.toLowerCase().includes(query));
           renderProducts(matched);
+
+          // Показ подсказок
+          const matches = filtered
+            .map(item => item.название)
+            .filter(name => name.toLowerCase().includes(query))
+            .slice(0, 10);
+
+          suggestionsContainer.innerHTML = '';
+          matches.forEach(match => {
+            const div = document.createElement('div');
+            div.textContent = match;
+            div.style.padding = '6px';
+            div.style.cursor = 'pointer';
+            div.addEventListener('click', () => {
+              searchInput.value = match;
+              suggestionsContainer.style.display = 'none';
+              const evt = new Event('input');
+              searchInput.dispatchEvent(evt);
+            });
+            suggestionsContainer.appendChild(div);
+          });
+
+          suggestionsContainer.style.display = matches.length ? 'block' : 'none';
         }
       });
 
-      // Изначально скрываем фильтры и товары, показываем категории
+      document.addEventListener('click', e => {
+        if (!searchInput.contains(e.target) && !suggestionsContainer.contains(e.target)) {
+          suggestionsContainer.style.display = 'none';
+        }
+      });
+
+      // Начальное состояние
       if (filters) filters.style.display = 'none';
       if (productList) productList.style.display = 'none';
       if (categoryGallery) categoryGallery.style.display = 'grid';
@@ -112,7 +144,7 @@ fetch(url)
     console.error(err);
   });
 
-// Кнопка обновления сайта, если есть
+// Кнопка обновления сайта
 const refreshBtn = document.getElementById('refreshBtn');
 if (refreshBtn) {
   refreshBtn.onclick = () => location.reload();
