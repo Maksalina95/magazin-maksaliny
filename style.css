@@ -71,15 +71,18 @@ main {
 /* === 🎞 Слайдер === */
 .slider-container {
   position: relative;
-  max-width: 100%;
-  margin-bottom: 20px;
+  max-width: 450px;
+  margin: 0 auto 20px;
   overflow: hidden;
   border-radius: 12px;
+  box-shadow: 0 0 15px rgba(166, 59, 59, 0.2);
 }
 .slide {
   display: none;
   width: 100%;
   height: auto;
+  max-height: 160px;
+  object-fit: cover;
   border-radius: 12px;
 }
 .slide.active {
