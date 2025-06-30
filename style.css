@@ -40,28 +40,6 @@ aside a:hover {
   background-color: #ffdede;
 }
 
-/* === 📱 Адаптация под мобильные === */
-@media (max-width: 768px) {
-  .container {
-    flex-direction: column;
-  }
-  aside {
-    width: 100%;
-    display: flex;
-    overflow-x: auto;
-    white-space: nowrap;
-    padding: 10px;
-  }
-  aside a {
-    flex: 1 0 auto;
-    margin: 0 8px;
-    text-align: center;
-  }
-  main {
-    padding: 10px;
-  }
-}
-
 main {
   flex: 1;
   padding: 20px;
@@ -76,19 +54,23 @@ main {
   overflow: hidden;
   border-radius: 12px;
 }
+
 .slide {
   display: none;
   width: 100%;
   height: auto;
   border-radius: 12px;
 }
+
 .slide.active {
   display: block;
 }
+
 .dots {
   text-align: center;
   margin-top: 10px;
 }
+
 .dot {
   display: inline-block;
   width: 10px;
@@ -98,6 +80,7 @@ main {
   margin: 0 4px;
   cursor: pointer;
 }
+
 .dot.active {
   background: #a63b3b;
 }
@@ -110,10 +93,12 @@ main {
   gap: 12px;
   align-items: center;
 }
+
 .filters label {
   font-size: 14px;
   color: #333;
 }
+
 .filters input,
 .filters select {
   padding: 10px 14px;
@@ -121,6 +106,7 @@ main {
   border: 1px solid #ccc;
   border-radius: 6px;
 }
+
 .price-range {
   display: flex;
   align-items: center;
@@ -131,16 +117,19 @@ main {
 .category-section {
   margin-bottom: 40px;
 }
+
 .category-section h2 {
   font-size: 22px;
   color: #a63b3b;
   margin-bottom: 16px;
 }
+
 .product-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
   gap: 16px;
 }
+
 .product-card {
   background: #fff;
   border-radius: 14px;
@@ -149,9 +138,11 @@ main {
   text-align: center;
   transition: transform 0.2s;
 }
+
 .product-card:hover {
   transform: scale(1.02);
 }
+
 .product-card img,
 .product-card video {
   width: 100%;
@@ -159,28 +150,33 @@ main {
   object-fit: cover;
   border-radius: 12px;
 }
+
 .product-card h3 {
   margin: 10px 0 5px;
   font-size: 16px;
   color: #444;
 }
+
 .product-card p {
   font-size: 14px;
   color: #666;
   margin: 4px 0;
 }
+
 .product-card strong {
   font-size: 16px;
   color: #000;
   display: block;
   margin: 6px 0;
 }
+
 .card-buttons {
   margin-top: 8px;
   display: flex;
   justify-content: center;
   gap: 8px;
 }
+
 .card-buttons a {
   background: #25D366;
   color: white;
@@ -189,6 +185,7 @@ main {
   text-decoration: none;
   font-size: 14px;
 }
+
 .fav-btn {
   background: #eee;
   border: none;
@@ -197,6 +194,7 @@ main {
   border-radius: 6px;
   cursor: pointer;
 }
+
 .fav-btn.active {
   background: gold;
 }
@@ -212,6 +210,7 @@ main {
   cursor: pointer;
   margin-top: 20px;
 }
+
 #refreshBtn:hover {
   background: #8b2d2d;
 }
@@ -325,3 +324,17 @@ input[list]::-webkit-calendar-picker-indicator {
   .category-tile span {
     font-size: 13px;
   }
+}
+
+/* 📱 Уменьшаем размер баннеров в мобильной версии */
+@media (max-width: 768px) {
+  .slider-container {
+    max-width: 360px;
+    margin: 0 auto;
+  }
+
+  .slide {
+    max-height: 130px;
+    object-fit: cover;
+  }
+}
