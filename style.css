@@ -71,18 +71,15 @@ main {
 /* === 🎞 Слайдер === */
 .slider-container {
   position: relative;
-  max-width: 450px;
-  margin: 0 auto 20px;
+  max-width: 100%;
+  margin-bottom: 20px;
   overflow: hidden;
   border-radius: 12px;
-  box-shadow: 0 0 15px rgba(166, 59, 59, 0.2);
 }
 .slide {
   display: none;
   width: 100%;
   height: auto;
-  max-height: 160px;
-  object-fit: cover;
   border-radius: 12px;
 }
 .slide.active {
@@ -119,8 +116,8 @@ main {
 }
 .filters input,
 .filters select {
-  padding: 6px 10px;
-  font-size: 14px;
+  padding: 10px 14px;
+  font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 6px;
 }
@@ -328,4 +325,3 @@ input[list]::-webkit-calendar-picker-indicator {
   .category-tile span {
     font-size: 13px;
   }
-}
