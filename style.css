@@ -1,10 +1,23 @@
-/* === 🌸 Общий стиль для магазина Максалины === */
+  /* === 🌸 Общий стиль для магазина Максалины === */
 body {
   font-family: Arial, sans-serif;
   background: #f7e9e9;
   color: #5a2e2e;
   margin: 0;
   padding: 0;
+}
+
+/* 📱 Стиль фонового изображения (если будет) */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-image: url('images/fon.jpg'); /* <-- сюда путь к файлу */
+  background-size: cover;
+  background-position: center;
+  opacity: 0.1;
+  z-index: -1;
 }
 
 .container {
@@ -18,6 +31,7 @@ aside {
   background: #fff0f0;
   padding: 20px;
   box-shadow: 2px 0 6px rgba(0,0,0,0.1);
+  flex-shrink: 0;
 }
 
 aside h2 {
@@ -49,11 +63,13 @@ main {
 /* === 🎞 Слайдер === */
 .slider-container {
   position: relative;
-  max-width: 100%;
-  margin-bottom: 20px;
+  max-width: 400px;
+  margin: 0 auto 20px;
   overflow: hidden;
   border-radius: 12px;
+  box-shadow: 0 0 15px rgba(166, 59, 59, 0.2);
 }
+
 .slide {
   display: none;
   width: 100%;
@@ -62,9 +78,11 @@ main {
   object-fit: cover;
   border-radius: 12px;
 }
+
 .slide.active {
   display: block;
 }
+
 .dots {
   text-align: center;
   margin-top: 10px;
@@ -100,6 +118,7 @@ main {
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 6px;
+  min-width: 200px;
 }
 .price-range {
   display: flex;
@@ -196,7 +215,7 @@ main {
   background: #8b2d2d;
 }
 
-/* === 📍 Адрес и 📞 Контакты страницы === */
+/* === 📍 Адрес и Контакты === */
 .contact-info, .address-info {
   background: #fffafc;
   border: 1px solid #e5bebe;
@@ -264,7 +283,7 @@ main {
   font-size: 14px;
 }
 
-/* 🗣 Отзывы: оригинальный размер изображения */
+/* === Отзывы === */
 #reviewsGallery .product-card img {
   width: auto;
   height: auto;
@@ -276,36 +295,25 @@ main {
   border-radius: 10px;
 }
 
-/* === 📱 Исправления и дополнения === */
-input[list]::-webkit-calendar-picker-indicator {
-  display: none !important;
-}
-#filters.hidden {
-  display: none;
-}
-
-/* === 📱 📌 Новая адаптация для бокового меню (меню остаётся сбоку!) === */
+/* === 📱 Мобильная адаптация === */
 @media (max-width: 768px) {
   .container {
-    flex-direction: row;
+    flex-direction: row; /* ☑ оставить сбоку меню */
   }
 
   aside {
-    width: 200px;
-    display: block;
-    overflow: auto;
-    white-space: normal;
-    padding: 10px;
+    width: 180px;
+    flex-shrink: 0;
+    padding: 12px;
   }
 
   aside a {
-    display: block;
-    margin: 10px 0;
-    text-align: left;
+    font-size: 13px;
+    padding: 6px;
   }
 
   main {
-    padding: 10px;
+    padding: 12px;
   }
 
   .product-card h3 {
@@ -318,5 +326,15 @@ input[list]::-webkit-calendar-picker-indicator {
 
   .category-tile span {
     font-size: 13px;
+  }
+
+  .filters input,
+  .filters select {
+    min-width: 150px;
+    font-size: 14px;
+  }
+
+  .slide {
+    max-height: 120px;
   }
 }
