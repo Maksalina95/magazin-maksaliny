@@ -2,7 +2,7 @@ const urlCategory = `${baseUrl}/Sheet1`;
 
 const categoryGallery = document.getElementById('categoryGrid'); // 💡 Исправлено!
 
-fetch(url)
+fetch(urlCategory)
   .then(res => res.json())
   .then(data => {
     const filtered = data.filter(item => item.категория && item['картинка категории']);
