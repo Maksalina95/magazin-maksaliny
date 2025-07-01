@@ -1,4 +1,4 @@
-const url = `${baseUrl}/Sheet1`;
+const urlCategory = `${baseUrl}/Sheet1`;
 
 const categoryGallery = document.getElementById('categoryGrid'); // 💡 Исправлено!
 
