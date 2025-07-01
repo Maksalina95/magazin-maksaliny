@@ -1,6 +1,6 @@
-const urlCategory = `${baseUrl}/Sheet1`;
+const urlCategory = ${baseUrl}/Sheet1;
 
-const categoryGallery = document.getElementById('categoryGrid'); // 💡 Исправлено!
+const categoryGallery = document.getElementById('category-gallery'); // ✅ ID исправлен
 
 fetch(urlCategory)
   .then(res => res.json())
