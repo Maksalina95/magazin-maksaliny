@@ -1,4 +1,4 @@
-const url = `${baseUrl}/Sheet1`;
+const urlFilter = `${baseUrl}/Sheet1`;
 
 const productList = document.getElementById('product-list');
 const searchInput = document.getElementById('searchInput');
