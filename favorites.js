@@ -1,4 +1,4 @@
-const url = ${baseUrl}/Sheet1;
+const url = `${baseUrl}/Sheet1`;
 const favoritesList = document.getElementById('favorites-list');
 
 const favoriteIds = JSON.parse(localStorage.getItem('favorites') || '[]');
