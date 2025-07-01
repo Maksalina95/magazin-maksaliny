@@ -1,5 +1,4 @@
-const sheetId = '1gBcuPzWv_nH2i7sWyCaERVCjO-hLg8EcndPkEMlNqgw';
-const url = `https://opensheet.elk.sh/${sheetId}/Sheet1`;
+const url = ${baseUrl}/Sheet1;
 
 const productList = document.getElementById('product-list');
 const categoryGallery = document.getElementById('category-gallery');
