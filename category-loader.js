@@ -1,4 +1,4 @@
-const urlCategory = `${baseUrl}/Sheet1`;
+const categoryUrl = `${baseUrl}/Sheet1`;
 
 let categoryGallery = document.getElementById('category-gallery'); // ✅ ID исправлен
 
