@@ -1,6 +1,6 @@
 const urlCategory = `${baseUrl}/Sheet1`;
 
-const categoryGallery = document.getElementById('category-gallery'); // ✅ ID исправлен
+let categoryGallery = document.getElementById('category-gallery'); // ✅ ID исправлен
 
 fetch(urlCategory)
   .then(res => res.json())
