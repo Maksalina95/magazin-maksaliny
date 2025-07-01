@@ -18,18 +18,17 @@
       <a href="reviews.html">🗣 Отзывы</a>
       <a href="#" onclick="location.reload()">🔄 Обновить сайт</a>
       <a href="terms.html">📜 Правила</a>
-    </aside><main>
-  <!-- 🎞 Слайдер -->
-  <div class="slider-container">
-    <img src="images/reklama1.jpg" class="slide active" alt="Реклама 1">
-    <img src="images/reklama2.jpg" class="slide" alt="Реклама 2">
-  </div>
-  <div class="dots">
-    <span class="dot active" onclick="showSlide(0)"></span>
-    <span class="dot" onclick="showSlide(1)"></span>
-  </div>
-
-  <!-- 🔍 Поиск -->
+    </aside>
+    <main>
+      <!-- 🎞 Слайдер -->
+      <div class="slider-container">
+        <img src="images/reklama1.jpg" class="slide active" alt="Реклама 1">
+        <img src="images/reklama2.jpg" class="slide" alt="Реклама 2">
+      </div>
+      <div class="dots">
+        <span class="dot active" onclick="showSlide(0)"></span>
+        <span class="dot" onclick="showSlide(1)"></span>
+      </div><!-- 🔍 Поиск -->
   <div class="filters">
     <input type="text" id="searchInput" placeholder="🔍 Поиск по названию..." list="autocompleteList" />
   </div>
@@ -71,7 +70,7 @@
   </div>
 </main>
 
-  </div>  <!-- 📜 Скрипты -->  <script src="favorites.js"></script>  <script src="app.js"></script>  <script>
+  </div>  <!-- 📜 Скрипты -->  <script src="config.js"></script>  <script src="app.js"></script>  <script src="favorites.js"></script>  <script src="category-loader.js"></script>  <script src="filter-search.js"></script>  <script>
     // 🎞 Слайдер
     let slides = document.querySelectorAll(".slide");
     let dots = document.querySelectorAll(".dot");
@@ -89,5 +88,12 @@
       let next = (currentSlide + 1) % slides.length;
       showSlide(next);
     }, 5000);
+
+    // 💾 Регистрация service-worker (если нужен)
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js')
+        .then(reg => console.log('✅ Service Worker зарегистрирован:', reg.scope))
+        .catch(err => console.error('❌ Ошибка Service Worker:', err));
+    }
   </script></body>
 </html>
