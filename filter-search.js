@@ -33,7 +33,7 @@ function showProducts(list) {
         ? `<video controls src="${item.видео}"></video>` 
         : `<img src="${item.фото}" alt="${item.название}" />`}
       <h3>${item.название}</h3>
-      ${item.описание ? <p>${item.описание}</p> : ''}
+      ${item.описание ? `<p>${item.описание}</p>` : ''}
       <strong>${item.цена} ₽</strong>
       <div class="card-buttons">
         <a href="https://wa.me/79376280080" target="_blank">WhatsApp</a>
