@@ -26,7 +26,6 @@ body::after {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  /* opacity: 0.1;  -- убираем прозрачность */
   z-index: -1; /* фон под всеми элементами */
   pointer-events: none; /* чтобы фон не мешал кликам */
 }
