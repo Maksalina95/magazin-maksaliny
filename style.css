@@ -22,11 +22,11 @@ body::after {
   position: fixed;
   top: 0; left: 0;
   width: 100%; height: 100%;
-  background-image: url('images/fon.jpg'); /* путь к твоему фону, проверить этот путь относительно style.css */
+  background-image: url('images/fon.jpg'); /* путь к твоему фону */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  opacity: 0.9; /* прозрачность фона */
+  /* opacity: 0.1;  -- убираем прозрачность */
   z-index: -1; /* фон под всеми элементами */
   pointer-events: none; /* чтобы фон не мешал кликам */
 }
