@@ -1,76 +1,76 @@
 const filterSearchUrl = `${baseUrl}/Sheet1`;
 
-const productList = document.getElementById('product-list');
-const searchInput = document.getElementById('searchInput');
-const autoList = document.getElementById('autocompleteList');
+const productListEl = document.getElementById('product-list');
+const searchInputEl = document.getElementById('searchInput');
+const autoListEl = document.getElementById('autocompleteList');
 
-let products = [];
+let productListData = [];
 
 // 📥 Загрузка товаров из Google Таблицы
-fetch(url)
+fetch(filterSearchUrl)
   .then(res => res.json())
   .then(data => {
-    products = data.filter(item => item.фото && item.название && item.цена);
-    updateFilters(products);
-    showProducts(products);
-    setupAutocomplete(products);
+    productListData = data.filter(item => item.фото && item.название && item.цена);
+    updateFilters(productListData);
+    showProducts(productListData);
+    setupAutocomplete(productListData);
   })
   .catch(err => {
-    if (productList) productList.innerHTML = '<p>Ошибка загрузки товаров.</p>';
+    if (productListEl) productListEl.innerHTML = '<p>Ошибка загрузки товаров.</p>';
     console.error(err);
   });
 
 // 🧱 Отображение товаров
 function showProducts(list) {
-  if (!productList) return;
-  productList.innerHTML = '';
+  if (!productListEl) return;
+  productListEl.innerHTML = '';
   list.forEach(item => {
     const el = document.createElement('div');
     el.className = 'product-card';
 
     el.innerHTML = `
       ${item.видео 
-        ? `<video controls src="${item.видео}"></video>` 
-        : `<img src="${item.фото}" alt="${item.название}" />`}
+        ? <video controls src="${item.видео}"></video> 
+        : <img src="${item.фото}" alt="${item.название}" />}
       <h3>${item.название}</h3>
-      ${item.описание ? `<p>${item.описание}</p>` : ''}
+      ${item.описание ? <p>${item.описание}</p> : ''}
       <strong>${item.цена} ₽</strong>
       <div class="card-buttons">
         <a href="https://wa.me/79376280080" target="_blank">WhatsApp</a>
         <button class="fav-btn" onclick="toggleFavorite('${item.название}')">⭐</button>
       </div>
     `;
-    productList.appendChild(el);
+    productListEl.appendChild(el);
   });
 }
 
 // 🔍 Поиск
-if (searchInput) {
-  searchInput.addEventListener('input', () => {
-    const term = searchInput.value.toLowerCase();
-    const filtered = products.filter(p => p.название.toLowerCase().includes(term));
+if (searchInputEl) {
+  searchInputEl.addEventListener('input', () => {
+    const term = searchInputEl.value.toLowerCase();
+    const filtered = productListData.filter(p => p.название.toLowerCase().includes(term));
     showProducts(filtered);
   });
 }
 
 // 💡 Автозаполнение
 function setupAutocomplete(list) {
-  if (!autoList) return;
-  autoList.innerHTML = '';
+  if (!autoListEl) return;
+  autoListEl.innerHTML = '';
   list.forEach(p => {
     const opt = document.createElement('option');
     opt.value = p.название;
-    autoList.appendChild(opt);
+    autoListEl.appendChild(opt);
   });
 }
 
 // 🎯 Фильтры
-const selects = document.querySelectorAll('#filters select, #filters input');
-selects.forEach(sel => sel.addEventListener('change', applyFilters));
+const filterSelects = document.querySelectorAll('#filters select, #filters input');
+filterSelects.forEach(sel => sel.addEventListener('change', applyFilters));
 
 function applyFilters() {
-  let result = [...products];
-  selects.forEach(sel => {
+  let result = [...productListData];
+  filterSelects.forEach(sel => {
     const id = sel.id.replace('filter-', '');
     const val = sel.value.toLowerCase();
     if (val && val !== 'все') {
@@ -84,7 +84,7 @@ function applyFilters() {
 function updateFilters(data) {
   const filterFields = ['category', 'subcategory', 'section', 'brand', 'country', 'type'];
   filterFields.forEach(field => {
-    const select = document.getElementById(`filter-${field}`);
+    const select = document.getElementById(filter-${field});
     if (!select) return;
     const unique = [...new Set(data.map(item => item[field]).filter(Boolean))];
     unique.forEach(val => {
