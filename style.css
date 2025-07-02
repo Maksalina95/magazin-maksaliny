@@ -1,4 +1,10 @@
 /* === 🌸 Общий стиль для магазина Максалины === */
+
+/* Глобально добавляем box-sizing, чтобы padding и border учитывались в ширине/высоте элементов */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 body {
   font-family: Arial, sans-serif;
   background: #f7e9e9;
@@ -7,7 +13,7 @@ body {
   padding: 0;
   position: relative; /* чтобы фон был под всеми элементами */
   min-height: 100vh;
-  overflow-x: hidden;
+  overflow-x: hidden; /* ЗАПРЕТИТЬ горизонтальную прокрутку */
 }
 
 /* 📱 Стиль фонового изображения */
@@ -16,7 +22,7 @@ body::after {
   position: fixed;
   top: 0; left: 0;
   width: 100%; height: 100%;
-  background-image: url('images/fon.jpg'); /* путь к твоему фону */
+  background-image: url('images/fon.jpg'); /* путь к твоему фону, проверить этот путь относительно style.css */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -28,7 +34,8 @@ body::after {
 .container {
   display: flex;
   min-height: 100vh;
-  flex-direction: row;
+  flex-direction: row; /* Меню слева, контент справа */
+  overflow-x: hidden; /* Чтобы не было горизонтального скролла */
 }
 
 aside {
@@ -37,6 +44,7 @@ aside {
   padding: 20px;
   box-shadow: 2px 0 6px rgba(0,0,0,0.1);
   flex-shrink: 0;
+  box-sizing: border-box; /* На всякий случай */
 }
 
 aside h2 {
@@ -53,6 +61,7 @@ aside a {
   font-weight: bold;
   padding: 8px;
   border-radius: 6px;
+  word-break: break-word; /* чтобы длинные ссылки не вылазили */
 }
 
 aside a:hover {
@@ -63,6 +72,8 @@ main {
   flex: 1;
   padding: 20px;
   background: #fff;
+  min-width: 0; /* Важно для flex, чтобы не выходил за пределы контейнера */
+  overflow-wrap: break-word; /* перенос слов, чтобы не ломать верстку */
 }
 
 /* === 🎞 Слайдер === */
@@ -128,6 +139,8 @@ main {
   border: 1px solid #ccc;
   border-radius: 6px;
   min-width: 200px;
+  max-width: 100%; /* Чтобы не выходило за пределы */
+  box-sizing: border-box;
 }
 
 .price-range {
@@ -322,22 +335,25 @@ main {
 /* === 📱 Мобильная адаптация === */
 @media (max-width: 768px) {
   .container {
-    flex-direction: row;
+    flex-direction: row; /* Меню слева даже на мобильных */
+    overflow-x: hidden; /* Убираем прокрутку */
   }
 
   aside {
-    width: 180px;
-    flex-shrink: 0;
+    width: 140px; /* Уже, чтобы меньше занимало место */
     padding: 12px;
   }
 
   aside a {
     font-size: 13px;
     padding: 6px;
+    word-break: break-word; /* Чтобы текст не ломал верстку */
   }
 
   main {
     padding: 12px;
+    min-width: 0; /* Очень важно для предотвращения горизонтальной прокрутки */
+    overflow-wrap: break-word;
   }
 
   .product-card h3 {
