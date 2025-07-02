@@ -209,7 +209,7 @@ function openProductDetail(index) {
     <button id="backBtn" style="margin-bottom: 15px;">← Назад</button>
     <div style="text-align:center;">
       ${product.видео
-        ? `<video controls src="${product.видео}" style="max-width:100%;border-radius:12px;"></video>`
+        ? `<video controls src="${product.видео}" style="max-width:100%;border-radius:12px;"></video>` 
         : `<img src="${product.фото}" alt="${product.название}" style="max-width:100%;border-radius:12px;" />`}
     </div>
     <h2>${product.название}</h2>
@@ -226,6 +226,15 @@ function openProductDetail(index) {
     productDetailContainer.style.display = 'none';
     if (productList) productList.style.display = 'grid';
     if (filters) filters.style.display = 'none';
-if (productList) productList.style.display = 'none';
-if (categoryGallery) categoryGallery.style.display = 'grid';
-};
+    if (categoryGallery) categoryGallery.style.display = 'grid';
+  };
+
+  // Обработчики для кнопок вперед/назад, если нужны
+  document.getElementById('prevBtn').onclick = () => {
+    if (currentProductIndex > 0) openProductDetail(currentProductIndex - 1);
+  };
+
+  document.getElementById('nextBtn').onclick = () => {
+    if (currentProductIndex < productsData.length - 1) openProductDetail(currentProductIndex + 1);
+  };
+}
