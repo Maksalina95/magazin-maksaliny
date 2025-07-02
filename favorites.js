@@ -27,7 +27,7 @@ fetch(favoritesUrl)
         <h3>${item.название}</h3>
         <p>${item.описание || ''}</p>
         <strong>${item.цена} ₽</strong><br/>
-        ${item.видео ? <video controls src="${item.видео}" style="max-width:100%;border-radius:12px;margin-top:10px;"></video> : ''}
+        ${item.видео ? `<video controls src="${item.видео}" style="max-width:100%;border-radius:12px;margin-top:10px;"></video>` : ''}
         <a href="https://wa.me/79376280080" target="_blank">WhatsApp</a>
       `;
       favList.appendChild(el);
