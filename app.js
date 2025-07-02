@@ -228,4 +228,4 @@ function openProductDetail(index) {
     if (filters) filters.style.display = 'none';
 if (productList) productList.style.display = 'none';
 if (categoryGallery) categoryGallery.style.display = 'grid';
-}
+};
