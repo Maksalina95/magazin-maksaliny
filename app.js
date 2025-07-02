@@ -225,4 +225,7 @@ function openProductDetail(index) {
   document.getElementById('backBtn').onclick = () => {
     productDetailContainer.style.display = 'none';
     if (productList) productList.style.display = 'grid';
-    if (filters
+    if (filters) filters.style.display = 'none';
+if (productList) productList.style.display = 'none';
+if (categoryGallery) categoryGallery.style.display = 'grid';
+}
