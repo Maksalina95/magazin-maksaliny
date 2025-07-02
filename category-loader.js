@@ -1,8 +1,8 @@
 const categoryUrl = `${baseUrl}/Sheet1`;
 
-let categoryGallery = document.getElementById('category-gallery'); // ✅ ID исправлен
+const catGallery = document.getElementById('category-gallery'); // переменная переименована, чтобы не было конфликтов
 
-fetch(urlCategory)
+fetch(categoryUrl)
   .then(res => res.json())
   .then(data => {
     const filtered = data.filter(item => item.категория && item['картинка категории']);
@@ -15,7 +15,9 @@ fetch(urlCategory)
       }
     });
 
-    categoryGallery.innerHTML = '';
+    if (!catGallery) return;
+
+    catGallery.innerHTML = '';
     Object.entries(categoriesMap).forEach(([category, image]) => {
       const tile = document.createElement('div');
       tile.className = 'category-tile';
@@ -25,10 +27,10 @@ fetch(urlCategory)
           <span>${category}</span>
         </a>
       `;
-      categoryGallery.appendChild(tile);
+      catGallery.appendChild(tile);
     });
   })
   .catch(err => {
     console.error('Ошибка загрузки категорий:', err);
-    if (categoryGallery) categoryGallery.innerHTML = '<p>Не удалось загрузить категории.</p>';
+    if (catGallery) catGallery.innerHTML = '<p>Не удалось загрузить категории.</p>';
   });
