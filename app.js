@@ -1,11 +1,11 @@
-const url = `${baseUrl}/Sheet1`;
+const appurl = `${baseUrl}/Sheet1`;
 
 const productList = document.getElementById('product-list');
 const categoryGallery = document.getElementById('category-gallery');
 const filters = document.getElementById('filters');
 const searchInput = document.getElementById('searchInput');
 
-fetch(url)
+fetch(appUrl)
   .then(res => res.json())
   .then(data => {
     const filtered = data.filter(item => item.фото && item.название && item.цена);
