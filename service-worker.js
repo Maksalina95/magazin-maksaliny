@@ -1,5 +1,3 @@
-// 📦 service-worker.js — Финальный, улучшенный
-
 const CACHE_NAME = 'shop-cache-v4';
 
 const urlsToCache = [
