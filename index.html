@@ -2,232 +2,314 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Магазин Максалины</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>МаксМаркет</title>
   <link rel="stylesheet" href="style.css" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="icons/icon-192.png" type="image/png" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Lobster&display=swap" rel="stylesheet" />
+  <style>
+    /* --- Твои стили --- */
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      overscroll-behavior: none;
+      scroll-behavior: smooth;
+      font-family: 'Poppins', sans-serif;
+      background-color: #fff0f6;
+      color: #4B004B;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      padding: 15px 20px;
+      background-color: #E0218A;
+      position: relative;
+      z-index: 500;
+      color: white;
+    }
+    header .logo {
+      margin: 0 auto;
+      font-family: 'Lobster', cursive;
+      font-size: 28px;
+      font-weight: 700;
+      color: #fff5fa;
+    }
+    .bottom-icons {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: #fff;
+      display: flex;
+      justify-content: space-around;
+      padding: 8px 0;
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+    }
+    .bottom-icons button {
+      background: #fff;
+      border: none;
+      color: #e63946;
+      font-size: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .bottom-icons button:hover {
+      color: #c62d3b;
+    }
+    .search-bar {
+      padding: 16px;
+      background-color: #fff5fa;
+      box-shadow: 0 0 8px #f0c1d8;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: center;
+    }
+    .search-form {
+      position: relative;
+      width: 100%;
+      max-width: 900px;
+      display: flex;
+      gap: 8px;
+    }
+    .search-form input {
+      flex: 1;
+      padding: 12px 40px 12px 16px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      outline: none;
+      box-sizing: border-box;
+    }
+    .search-form button {
+      padding: 12px 18px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      background-color: #E0218A;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    #clearSearch {
+      position: absolute;
+      right: 110px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 20px;
+      color: #E0218A;
+      cursor: pointer;
+      display: none;
+      font-weight: bold;
+      background: transparent;
+      border: none;
+      padding: 0;
+      line-height: 1;
+      user-select: none;
+    }
+    .slider {
+      padding: 20px;
+      background: #fefefe;
+    }
+    main {
+      padding: 0 16px 100px;
+      max-width: 900px;
+      margin: 0 auto;
+      box-sizing: border-box;
+      min-height: 60vh; /* минимум высоты для контента */
+    }
+    .product-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 16px;
+    }
+    .product-card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 0 10px #ffe0f2;
+      padding: 16px;
+      position: relative;
+    }
+    .product-card img {
+      width: 100%;
+      border-radius: 12px;
+    }
+    .product-card h3 {
+      margin: 12px 0 8px;
+      font-size: 18px;
+      color: #4B004B;
+    }
+    .product-card p {
+      margin: 4px 0;
+      font-size: 14px;
+      color: #6a2a6c;
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <aside>
-      <h2>Меню</h2>
-      <a href="#" class="menu-link active" data-tab="search">🔍 Поиск и товары</a>
-      <a href="#" class="menu-link" data-tab="categories">📦 Категории</a>
-      <a href="#" class="menu-link" data-tab="menu">☰ Меню</a>
-    </aside>
-    <main>
-      <section id="search" class="tab active">
-        <div class="slider-container">
-          <img src="images/reklama1.jpg" class="slide active" alt="Реклама 1" />
-          <img src="images/reklama2.jpg" class="slide" alt="Реклама 2" />
-        </div>
-        <div class="dots">
-          <span class="dot active" data-index="0"></span>
-          <span class="dot" data-index="1"></span>
-        </div>
-        <div class="filters">
-          <input type="text" id="searchInput" placeholder="🔍 Поиск по названию..." list="autocompleteList" />
-          <datalist id="autocompleteList"></datalist>
-        </div>
-        <div id="product-list" class="product-list"></div>
-      </section>
+  <!-- Хедер -->
+  <header>
+    <h1 class="logo">МаксМаркет</h1>
+    <button id="installApp" class="install-button" style="display:none;">📲 Установить</button>
+  </header>
 
-      <section id="categories" class="tab">
-        <h2>Категории товаров</h2>
-        <div id="category-gallery"></div>
-      </section>
-
-      <section id="menu" class="tab">
-        <h2>Меню сайта</h2>
-        <ul>
-          <li><a href="favorites.html">⭐ Избранное</a></li>
-          <li><a href="delivery.html">🚚 Доставка</a></li>
-          <li><a href="contacts.html">📞 Контакты</a></li>
-          <li><a href="address.html">📍 Адрес</a></li>
-          <li><a href="reviews.html">🗣 Отзывы</a></li>
-          <li><a href="#" onclick="location.reload()">🔄 Обновить сайт</a></li>
-          <li><a href="terms.html">📜 Правила</a></li>
-        </ul>
-      </section>
-    </main>
+  <!-- Поисковая панель -->
+  <div class="search-bar">
+    <form class="search-form" onsubmit="return false;">
+      <input type="text" id="searchInput" placeholder="Найти на МаксМаркет" />
+      <span id="clearSearch">✕</span>
+      <button type="submit" id="applySearchBtn">Поиск</button>
+    </form>
   </div>
 
-  <nav class="tabbar">
-    <button class="tabbar-btn active" data-tab="search">🔍<br>Поиск</button>
-    <button class="tabbar-btn" data-tab="categories">📦<br>Категории</button>
-    <button class="tabbar-btn" data-tab="menu">☰<br>Меню</button>
-  </nav>
+  <!-- Слайдер -->
+  <section class="slider">
+    <div class="slide active">🌸 Добро пожаловать в Магазин Максалины!</div>
+    <div class="slide">📢 Здесь могла бы быть ваша РЕКЛАМА</div>
+  </section>
 
-  <!-- Модальное окно -->
-  <div id="product-modal" style="display:none;">
-    <div class="modal-overlay" onclick="closeModal(event)">
-      <div class="modal-content" onclick="event.stopPropagation();">
-        <button class="modal-close" onclick="closeModal()">&times;</button>
-        <div id="modal-body"></div>
-        <div class="modal-nav">
-          <button id="prevProduct">← Назад</button>
-          <button id="nextProduct">Вперёд →</button>
-        </div>
-      </div>
+  <!-- Основной контент, сюда загружаем страницы -->
+  <main id="mainContent">
+    <h2>Новинки</h2>
+    <ul id="suggestions"></ul>
+    <div id="productList" class="product-list">
+      <!-- Товары можно сюда динамически подгружать -->
     </div>
+  </main>
+
+  <!-- Нижнее меню -->
+  <div class="bottom-icons" role="navigation" aria-label="Основное меню">
+    <button data-title="Главная" data-url="home.html" aria-label="Главная">🏠<span class="tooltip">Главная</span></button>
+    <button data-title="Каталог" data-url="catalog.html" aria-label="Каталог">🛒<span class="tooltip">Каталог</span></button>
+    <button data-title="Контакты" data-url="contacts.html" aria-label="Контакты">📞<span class="tooltip">Контакты</span></button>
+    <button data-title="Доставка" data-url="delivery.html" aria-label="Доставка">🚖<span class="tooltip">Доставка</span></button>
+    <button data-title="Избранное" data-url="favorites.html" aria-label="Избранное">❤️<span class="tooltip">Избранное</span></button>
+    <button data-title="Адрес" data-url="adress.html" aria-label="Адрес">📍<span class="tooltip">Адрес</span></button>
+    <button data-title="Условия" data-url="rules.html" aria-label="Условия">📝<span class="tooltip">Условия</span></button>
+    <button data-title="Отзывы" data-url="reviews.html" aria-label="Отзывы">🏆<span class="tooltip">Отзывы</span></button>
+    <button onclick="location.reload()" aria-label="Обновить">🔄<span class="tooltip">Обновить</span></button>
   </div>
 
-  <!-- Подключаем config.js и основной скрипт -->
-  <script src="config.js"></script>
   <script>
-    const url = `${baseUrl}/Sheet1`;
+    // Переменные для элементов
+    const mainContent = document.getElementById('mainContent');
+    const buttons = document.querySelectorAll('.bottom-icons button[data-url]');
+    const input = document.getElementById("searchInput");
+    const clearBtn = document.getElementById("clearSearch");
+    const searchBtn = document.getElementById("applySearchBtn");
 
-    const tabs = document.querySelectorAll('.tab');
-    const menuLinks = document.querySelectorAll('.menu-link');
-    const tabbarBtns = document.querySelectorAll('.tabbar-btn');
-
-    function activateTab(tabId) {
-      tabs.forEach(tab => tab.classList.toggle('active', tab.id === tabId));
-      menuLinks.forEach(link => link.classList.toggle('active', link.dataset.tab === tabId));
-      tabbarBtns.forEach(btn => btn.classList.toggle('active', btn.dataset.tab === tabId));
+    // Загрузка страницы в main по URL (SPA)
+    async function loadPage(url, title) {
+      try {
+        mainContent.innerHTML = '<p>Загрузка...</p>';
+        const response = await fetch(url);
+        if (!response.ok) throw new Error('Ошибка загрузки');
+        const html = await response.text();
+        mainContent.innerHTML = html;
+        document.title = 'МаксМаркет — ' + title;
+        history.pushState({url, title}, title, `#${url}`);
+      } catch (error) {
+        mainContent.innerHTML = '<p style="color:red;">Ошибка загрузки страницы.</p>';
+        console.error(error);
+      }
     }
 
-    menuLinks.forEach(link => {
-      link.addEventListener('click', e => {
-        e.preventDefault();
-        activateTab(link.dataset.tab);
+    // Обработчик кликов по меню
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        const url = button.getAttribute('data-url');
+        const title = button.getAttribute('data-title');
+        loadPage(url, title);
       });
     });
 
-    tabbarBtns.forEach(btn => {
-      btn.addEventListener('click', () => activateTab(btn.dataset.tab));
+    // Обработка истории браузера (назад/вперёд)
+    window.addEventListener('popstate', (event) => {
+      if (event.state) {
+        loadPage(event.state.url, event.state.title);
+      } else {
+        loadHome();
+      }
     });
 
-    // Слайдер
-    const slides = document.querySelectorAll('.slide');
-    const dots = document.querySelectorAll('.dot');
-    let currentSlide = 0;
-    function showSlide(index) {
-      slides[currentSlide].classList.remove('active');
-      dots[currentSlide].classList.remove('active');
-      currentSlide = index;
-      slides[currentSlide].classList.add('active');
-      dots[currentSlide].classList.add('active');
-    }
-    dots.forEach(dot => {
-      dot.addEventListener('click', () => showSlide(Number(dot.dataset.index)));
-    });
-    setInterval(() => {
-      let next = (currentSlide + 1) % slides.length;
-      showSlide(next);
-    }, 5000);
-
-    let products = [];
-    let currentIndex = 0;
-
-    function closeModal(event) {
-      if(event) event.stopPropagation();
-      document.getElementById('product-modal').style.display = 'none';
+    // Загрузка главной страницы
+    function loadHome() {
+      mainContent.innerHTML = `
+        <h2>Новинки</h2>
+        <ul id="suggestions"></ul>
+        <div id="productList" class="product-list">
+          <!-- Здесь твои товары -->
+        </div>`;
+      document.title = 'МаксМаркет — Главная';
+      history.replaceState({url:'home.html', title:'Главная'}, 'Главная', '#home.html');
     }
 
-    function renderProducts(list) {
-      const productList = document.getElementById("product-list");
-      productList.innerHTML = "";
-
-      list.forEach((row, index) => {
-        const name = row["название"] || "";
-        const description = row["описание"] || "";
-        const price = row["цена"] || "";
-        const photo = row["фото"] || "";
-        const video = row["видео"] || "";
-        const subcategory = row["подкатегория"] || "";
-        const category = row["категория"] || "";
-        const subsubcategory = row["подподкатегория"] || "";
-        const brand = row["бренд"] || "";
-        const country = row["страна"] || "";
-        const type = row["тип"] || "";
-        const categoryImage = row["картинка категории"] || "";
-
-        const card = document.createElement("div");
-        card.className = "product-card";
-        card.innerHTML = `
-          ${photo ? `<img src="${photo}" alt="${name}" loading="lazy">` : ""}
-          <h3>${name}</h3>
-          ${price ? `<strong>${price} ₽</strong>` : ""}
-          ${description ? `<p>${description}</p>` : ""}
-          ${brand ? `<p><b>Бренд:</b> ${brand}</p>` : ""}
-          ${country ? `<p><b>Страна:</b> ${country}</p>` : ""}
-          ${type ? `<p><b>Тип:</b> ${type}</p>` : ""}
-          ${subcategory ? `<p><b>Подкатегория:</b> ${subcategory}</p>` : ""}
-          ${subsubcategory ? `<p><b>Подподкатегория:</b> ${subsubcategory}</p>`: ""}
-          ${categoryImage ? `<p><b>Картинка категории:</b><br><img src="${categoryImage}" alt="Категория ${category}" style="max-width:100px; border-radius:8px; margin-top:5px;"></p>` : ""}
-          <div class="card-buttons">
-            <a href="https://wa.me/79376280080?text=Здравствуйте! Хочу заказать: ${encodeURIComponent(name)}" target="_blank">WhatsApp 1</a>
-            <a href="https://wa.me/89649626694?text=Здравствуйте! Хочу заказать: ${encodeURIComponent(name)}" target="_blank">WhatsApp 2</a>
-          </div>
-        `;
-        card.addEventListener('click', () => openModal(index));
-        productList.appendChild(card);
-      });
+    // Изначально грузим главную
+    if (!location.hash) {
+      loadHome();
+    } else {
+      // Если есть хэш — подгружаем нужную страницу
+      const hashUrl = location.hash.slice(1);
+      const button = Array.from(buttons).find(b => b.getAttribute('data-url') === hashUrl);
+      if (button) {
+        loadPage(hashUrl, button.getAttribute('data-title'));
+      } else {
+        loadHome();
+      }
     }
 
-    function openModal(index) {
-      currentIndex = index;
-      const product = products[index];
-      if (!product) return;
-
-      const modalBody = document.getElementById('modal-body');
-      modalBody.innerHTML = '';
-
-      if (product["фото"]) modalBody.innerHTML += `<img src="${product["фото"]}" alt="${product["название"]}" loading="lazy">`;
-      if (product["видео"]) modalBody.innerHTML += `<video controls src="${product["видео"]}" style="margin-bottom:12px; max-width:100%; border-radius:8px;"></video>`;
-
-      modalBody.innerHTML += <h3>${product["название"] || ''}</h3>;
-      if(product["цена"]) modalBody.innerHTML += `<p><strong>Цена:</strong> ${product["цена"]} ₽</p>`;
-      if(product["описание"]) modalBody.innerHTML += `<p><strong>Описание:</strong> ${product["описание"]}</p>`;
-      if(product["бренд"]) modalBody.innerHTML += `<p><strong>Бренд:</strong> ${product["бренд"]}</p>`;
-      if(product["страна"]) modalBody.innerHTML += `<p><strong>Страна:</strong> ${product["страна"]}</p>`;
-      if(product["тип"]) modalBody.innerHTML += `<p><strong>Тип:</strong> ${product["тип"]}</p>`;
-      if(product["категория"]) modalBody.innerHTML += `<p><strong>Категория:</strong> ${product["категория"]}</p>`;
-      if(product["подкатегория"]) modalBody.innerHTML += `<p><strong>Подкатегория:</strong> ${product["подкатегория"]}</p>`;
-      if(product["подподкатегория"]) modalBody.innerHTML += `<p><strong>Подподкатегория:</strong> ${product["подподкатегория"]}</p>`;
-      if(product["картинка категории"]) modalBody.innerHTML += `<p><strong>Картинка категории:</strong><br><img src="${product["картинка категории"]}" alt="Категория" style="max-width:120px; border-radius:8px;"></p>`;
-
-      document.getElementById('product-modal').style.display = 'flex';
-    }
-
-    document.getElementById('prevProduct').addEventListener('click', () => {
-      currentIndex = (currentIndex - 1 + products.length) % products.length;
-      openModal(currentIndex);
-    });
-    document.getElementById('nextProduct').addEventListener('click', () => {
-      currentIndex = (currentIndex + 1) % products.length;
-      openModal(currentIndex);
+    // Поиск — пример, можно доработать
+    input.addEventListener("input", () => {
+      clearBtn.style.display = input.value.trim() ? "inline" : "none";
     });
 
-    const searchInput = document.getElementById('searchInput');
-    const autocompleteList = document.getElementById('autocompleteList');
-
-    function populateAutocomplete(list) {
-      autocompleteList.innerHTML = '';
-      const namesSet = new Set(list.map(p => p["название"]).filter(Boolean));
-      namesSet.forEach(name => {
-        const option = document.createElement('option');
-        option.value = name;
-        autocompleteList.appendChild(option);
-      });
-    }
-
-    searchInput.addEventListener('input', () => {
-      const query = searchInput.value.trim().toLowerCase();
-      const filtered = products.filter(p => p["название"].toLowerCase().includes(query));
-      renderProducts(filtered);
+    clearBtn.addEventListener("click", () => {
+      input.value = "";
+      clearBtn.style.display = "none";
+      // Очистить результаты поиска или товары, если нужно
+      document.getElementById("productList").innerHTML = "";
     });
 
-    fetch(url)
-      .then(res => res.json())
-      .then(data => {
-        products = data.filter(item => item["название"] && item["фото"]);
-        renderProducts(products);
-        populateAutocomplete(products);
-      })
-      .catch(err => {
-        console.error('Ошибка загрузки данных:', err);
-      });
+    searchBtn.addEventListener("click", () => {
+      const query = input.value.trim();
+      if (query !== "") {
+        // Здесь можно реализовать поиск по товарам, пока просто alert
+        alert("Поиск по запросу: " + query);
+      }
+    });
+
+    // Установка PWA (кнопка "Установить")
+    let deferredPrompt;
+    const installBtn = document.getElementById('installApp');
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      installBtn.style.display = 'inline-block';
+    });
+
+    installBtn.addEventListener('click', () => {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((choiceResult) => {
+          if (choiceResult.outcome === 'accepted') {
+            console.log('Пользователь согласился установить приложение');
+          } else {
+            console.log('Пользователь отказался от установки');
+          }
+          deferredPrompt = null;
+          installBtn.style.display = 'none';
+        });
+      }
+    });
   </script>
 </body>
 </html>
