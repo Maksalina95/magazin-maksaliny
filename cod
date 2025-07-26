@@ -1,0 +1,6 @@
+function doPost(e) {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Лист1");
+  const data = [e.parameter["Имя"], e.parameter["Телефон"], e.parameter["Дата"]];
+  sheet.appendRow(data);
+  return ContentService.createTextOutput("OK");
+}
