@@ -4,3 +4,6 @@ function doPost(e) {
   sheet.appendRow(data);
   return ContentService.createTextOutput("OK");
 }
+
+
+https://docs.google.com/spreadsheets/d/1gBcuPzWv_nH2i7sWyCaERVCjO-hLg8EcndPkEMlNqgw/edit?usp=sharing
